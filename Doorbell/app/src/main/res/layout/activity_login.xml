@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_login_1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <FrameLayout
+        android:id="@+id/frame_login_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <EditText
+            android:id="@+id/edit_login_keypad"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="4" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linear_login_1">
+
+            <ImageView
+                android:id="@+id/img_login_lock1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/lock" />
+
+            <ImageView
+                android:id="@+id/img_login_lock2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/lock" />
+
+            <ImageView
+                android:id="@+id/img_login_lock3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/lock" />
+
+            <ImageView
+                android:id="@+id/img_login_lock4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/lock" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/img_login_line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frame_login_1"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/line" />
+
+    <ImageView
+        android:id="@+id/img_login_line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/frame_login_1"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/line" />
+
+    <TextView
+        android:id="@+id/txt_login_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/img_login_line1"
+        android:layout_alignLeft="@+id/img_login_line1"
+        android:layout_alignStart="@+id/img_login_line1"
+        android:text="Enter your PIN"
+        android:textSize="24dp" />
+</RelativeLayout>

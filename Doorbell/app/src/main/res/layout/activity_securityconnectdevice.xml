@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_securityconnectdevice_1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txt_securityconnectdevice_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:width="300dp"
+        android:gravity="center"
+        android:text="Detail"
+        android:textSize="32dp" />
+
+    <Button
+        android:id="@+id/btn_securityconnectdevice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:width="200dp"
+        android:text="Connect"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/edit_securityconnectdevice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_securityconnectdevice_2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:width="200dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txt_securityconnectdevice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/edit_securityconnectdevice_1"
+        android:layout_alignLeft="@+id/txt_securityconnectdevice_2"
+        android:layout_alignStart="@+id/txt_securityconnectdevice_2"
+        android:text="Password Device"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/edit_securityconnectdevice_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_securityconnectdevice_1"
+        android:layout_alignLeft="@+id/edit_securityconnectdevice_1"
+        android:layout_alignStart="@+id/edit_securityconnectdevice_1"
+        android:layout_marginBottom="30dp"
+        android:width="200dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txt_securityconnectdevice_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/edit_securityconnectdevice_2"
+        android:layout_alignLeft="@+id/txt_securityconnectdevice_1"
+        android:layout_alignStart="@+id/txt_securityconnectdevice_1"
+        android:text="IP Device"
+        android:textSize="24dp" />
+
+</RelativeLayout>

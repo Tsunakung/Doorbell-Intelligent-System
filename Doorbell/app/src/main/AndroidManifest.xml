@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lewtsu.android.doorbell">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icon_doorbell"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.FirstLoginActivity"
+            android:label="@string/title_activity_first_login" />
+        <activity
+            android:name=".activity.ConfirmFirstLoginActivity"
+            android:label="@string/title_activity_confirm_first_login" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".activity.ConnectDeviceActivity"
+            android:label="@string/title_activity_connect_device" />
+        <activity
+            android:name=".activity.MenuActivity"
+            android:label="@string/title_activity_menu" />
+        <activity
+            android:name=".activity.SecurityConnectDeviceActivity"
+            android:label="@string/title_activity_security_connect_device"></activity>
+        <activity
+            android:name=".activity.menu.Tab1Activity"
+            android:label="@string/title_activity_tab1"></activity>
+        <activity
+            android:name=".activity.menu.Tab2Activity"
+            android:label="@string/title_activity_tab2"></activity>
+        <activity
+            android:name=".activity.menu.Tab3Activity"
+            android:label="@string/title_activity_tab3"></activity>
+    </application>
+
+</manifest>

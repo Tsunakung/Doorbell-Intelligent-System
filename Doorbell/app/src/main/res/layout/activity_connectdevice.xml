@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txt_connectdevice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:maxLines="1"
+        android:text="Scanning..."
+        android:textSize="24dp"
+        android:textColor="#0000ff" />
+
+    <Button
+        android:id="@+id/btn_connectdevice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_connectdevice_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:width="200dp"
+        android:height="100dp"
+        android:text="Connect"
+        android:textSize="32dp" />
+
+    <Button
+        android:id="@+id/btn_connectdevice_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_connectdevice_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:width="200dp"
+        android:text="Manually" />
+
+    <ImageView
+        android:id="@+id/img_connectdevice_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_connectdevice_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/camera_connect" />
+
+    <ImageView
+        android:id="@+id/img_connectdevice_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/img_connectdevice_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/line" />
+
+    <TextView
+        android:id="@+id/txt_connectdevice_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/img_connectdevice_2"
+        android:layout_alignEnd="@+id/img_connectdevice_2"
+        android:layout_alignRight="@+id/img_connectdevice_2"
+        android:text="Offline"
+        android:textSize="36dp"
+        android:textColor="#ff0000" />
+
+    <TextView
+        android:id="@+id/txt_connectdeivce_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/img_connectdevice_2"
+        android:layout_alignLeft="@+id/img_connectdevice_2"
+        android:layout_alignStart="@+id/img_connectdevice_2"
+        android:text="Status"
+        android:textSize="36dp"
+        android:textColor="#55ff00" />
+
+    <TextView
+        android:id="@+id/txt_connectdeivce_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/img_connectdevice_2"
+        android:layout_centerHorizontal="true"
+        android:text=":"
+        android:textSize="36dp"
+        android:textColor="#0000ff" />
+</RelativeLayout>
