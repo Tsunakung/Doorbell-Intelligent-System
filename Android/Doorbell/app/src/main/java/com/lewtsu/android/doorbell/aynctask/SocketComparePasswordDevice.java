@@ -7,8 +7,10 @@ import com.lewtsu.android.doorbell.constant.Constant;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean> {
 
@@ -22,17 +24,19 @@ public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean
 
             Socket socket = new Socket();
             socket.connect(inetSocketAddress, 3000);
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            DataInputStream in = new DataInputStream(socket.getInputStream());
+            PrintWriter out = new PrintWriter(socket.getOutputStream());
+            Scanner in = new Scanner(socket.getInputStream());
 
-            out.writeUTF("This is password");
-            out.writeUTF(password);
+            out.println("Password");
             out.flush();
+            out.println(password);
+            out.flush();
+
+            String receive = in.nextLine();
+            isPassword = receive.equalsIgnoreCase("true");
+
             out.close();
-
-            isPassword = in.readBoolean();
             in.close();
-
             socket.close();
         } catch(IllegalArgumentException e) {
             e.printStackTrace();
