@@ -1,7 +1,5 @@
-import socket                                         
+﻿import socket                                         
 import threading
-import os
-from wifi import Cell,Scheme
 
 class _ClientThread(threading.Thread):
 
@@ -38,42 +36,7 @@ class _ClientPassword(_ClientThread):
     def getPassword(self):
         return '1234';
 
-class _ClientManageWifi(_ClientThread):
-
-    def handler(self):
-        if receive == 'scan':
-            print 'Connection from {}'.format(str(self.addr))
-            print 'Status: {}'.format(receive)
-            file = open('/etc/wpa_supplicant/wpa_supplicant.conf', 'r')
-            currentWifi = file.readlines()
-            dataSplit = currentWifi[4].split('ssid="')[1]
-            currentSSID = dataSplit.split('"')[0]
-            file.close()
-            data = Cell.all('wlan0')
-            self.clientsocket.send(str(len(data)) + '\r\n')
-            self.clientsocket.send(currentSSID + '\r\n')
-            for i in range(len(data)):
-                splitSSid = str(data[i]).split('=')[1]
-                self.clientsocket.send(str(splitSSid.split(')')[0]) + '\r\n')
-            print 'Exit ScanWifi'
-            
-        if 'modify' in receive:
-            print 'Status: {}'.format(receive)
-            ssid = receive.split(':')[1]
-            password = receive.split(':')[2]
-            editFile = open('/etc/wpa_supplicant/wpa_supplicant.conf','w')
-            editFile.write('ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n')
-            editFile.write('update_config=1\n')
-            editFile.write('\nnetwork={\n     ssid="')
-            editFile.write(ssid)
-            editFile.write('"\n     psk="')
-            editFile.write(password)
-            editFile.write('"\n}')
-            editFile.close()
-            print 'Exit Modify Wifi'
-            os.system("sudo reboot")
-
-class SocketServer(threading.Thread):
+class SocketGet(threading.Thread):
 
     def run(self):
         host = socket.gethostname()                           
@@ -95,8 +58,6 @@ class SocketServer(threading.Thread):
                 newThread = _ClientPing(clientsocket, addr, threads)
             elif type == 'Password':
                 newThread = _ClientPassword(clientsocket, addr, threads)
-            elif type == 'ManageWifi':
-                newThread = _ClientManageWifi(clientsocket, addr, threads)
 
             if newThread != None:
                 newThread.start()
@@ -106,3 +67,7 @@ class SocketServer(threading.Thread):
             t.join()
 
         socketserver.close()
+
+start = SocketGet()
+start.start()
+start.join()

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>130cfb16-d0b0-43bb-92f1-004a30d9ccd3</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Main.py</StartupFile>
+    <StartupFile>SocketGet.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,19 +22,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CapturePhoto.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MSql.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Main.py" />
-    <Compile Include="SocketServer.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="StreamServer.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="SocketGet.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

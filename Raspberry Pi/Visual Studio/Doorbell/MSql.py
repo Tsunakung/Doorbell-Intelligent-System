@@ -3,7 +3,7 @@
 class MSql:
 
     def __init__(self):
-        self.db = MySQLdb.connect('127.0.0.1','root','1234','doorbell')
+        self.db = MySQLdb.connect(host="localhost", user="root", passwd="1234", db="doorbell")
 
     def select(self, cmd):
         cur = db.cursor()
