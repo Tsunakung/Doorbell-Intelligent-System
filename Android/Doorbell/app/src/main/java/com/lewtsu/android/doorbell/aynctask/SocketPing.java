@@ -9,6 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -41,6 +42,8 @@ public class SocketPing extends AsyncTask<String, Void, Boolean> {
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SocketTimeoutException e) {
+            Log.e(Constant.TAG, "Can't connect " + ip);
+        } catch (ConnectException e) {
             Log.e(Constant.TAG, "Can't connect " + ip);
         } catch (IOException e) {
             e.printStackTrace();

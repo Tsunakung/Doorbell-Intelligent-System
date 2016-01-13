@@ -93,6 +93,11 @@ public class SecurityConnectDeviceActivity extends Activity {
                         });
 
                         try {
+                            /*
+                            Config.getConfig().put(Constant.CONNECT_IP, "pitaknorasate.asuscomm.com");
+                            Config.writeConfig();
+                            intent = new Intent(SecurityConnectDeviceActivity.this, MenuActivity.class);
+                            */
                             boolean isConnect = new SocketPing().execute(ipConnect).get();
                             boolean isPassword = new SocketComparePasswordDevice().execute(ipConnect, password).get();
                             if (ipConnect == null || ipConnect.length() == 0) {
