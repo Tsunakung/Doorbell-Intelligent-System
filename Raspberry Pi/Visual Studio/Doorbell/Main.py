@@ -1,10 +1,10 @@
 ﻿import SocketServer
 import StreamServer
 
-startSocket = SocketServer()
+startSocket = SocketServer.SocketServer()
 startSocket.start()
 
-startStream = StreamServer()
+startStream = StreamServer.StreamServer()
 startStream.start()
 
 #ไม่ต้องมีเวลาทำงานจริง (มั้ง)

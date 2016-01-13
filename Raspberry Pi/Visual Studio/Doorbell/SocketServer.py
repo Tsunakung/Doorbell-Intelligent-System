@@ -5,9 +5,6 @@ from wifi import Cell,Scheme
 
 class _ClientThread(threading.Thread):
 
-    def __call__(self):
-        return
-
     def __init__(self, pclientsocket, paddr, pthread):
         threading.Thread.__init__(self)
         self.clientsocket = pclientsocket
