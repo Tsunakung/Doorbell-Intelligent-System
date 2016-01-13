@@ -102,7 +102,7 @@ public class SecurityConnectDeviceActivity extends Activity {
                             } else if (!isPassword) {
                                 responseToast = "Password device wrong";
                             } else {
-                                Config.getConfig().put(Constant.CONNECT_IP, password);
+                                Config.getConfig().put(Constant.CONNECT_IP, ipConnect);
                                 Config.writeConfig();
                                 intent = new Intent(SecurityConnectDeviceActivity.this, MenuActivity.class);
                             }

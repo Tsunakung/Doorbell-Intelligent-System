@@ -11,6 +11,9 @@ import glob
 
 class StreamServer(threading.Thread):
 
+    def __call__(self):
+        return
+
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(17,GPIO.IN)

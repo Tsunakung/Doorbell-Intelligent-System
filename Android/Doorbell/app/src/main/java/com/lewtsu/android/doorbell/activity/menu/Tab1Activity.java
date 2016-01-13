@@ -28,6 +28,7 @@ public class Tab1Activity extends AppCompatActivity {
         //Uri uri = Uri.parse(temp.getAbsolutePath());
         //vdo.setVideoURI(uri);
         vdo.setVideoPath("rtsp://media.5.ua:8080/tv/5tv/5tv1");
+        vdo.setVideoPath("http://pitaknorasate.asuscomm.com:8554/");
         vdo.setMediaController(media);
         vdo.requestFocus();
         //vdo.start();
