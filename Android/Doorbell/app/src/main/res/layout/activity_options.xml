@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lewtsu.android.doorbell.activity.menu.OptionsActivity">
+
+
+    <TextView
+        android:id="@+id/txt_options_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="New Text"
+        android:textColor="#0000ff"
+        android:textSize="24dp" />
+
+    <ListView
+        android:id="@+id/list_options_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_options_1"
+        android:layout_marginTop="30dp" />
+</RelativeLayout>

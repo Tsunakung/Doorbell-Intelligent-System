@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 
 import com.lewtsu.android.doorbell.constant.Constant;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -38,7 +36,7 @@ public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean
             out.close();
             in.close();
             socket.close();
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

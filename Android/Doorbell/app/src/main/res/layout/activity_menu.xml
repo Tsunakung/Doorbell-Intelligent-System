@@ -3,7 +3,7 @@
     android:id="@+id/relative_menu_1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.lewtsu.android.doorbell.activity.menu.Tab1Activity">
+    tools:context="com.lewtsu.android.doorbell.activity.menu.CameraActivity">
 
 
     <ListView

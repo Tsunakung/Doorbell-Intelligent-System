@@ -1,4 +1,4 @@
-package com.lewtsu.android.doorbell.activity;
+package com.lewtsu.android.doorbell.activity.menu;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,19 +10,17 @@ import android.widget.ListView;
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
 import com.lewtsu.android.doorbell.adapter.IconText;
-import com.lewtsu.android.doorbell.adapter.data.Camera;
+import com.lewtsu.android.doorbell.adapter.data.ChangePasswordDevice;
+import com.lewtsu.android.doorbell.adapter.data.ChangePin;
+import com.lewtsu.android.doorbell.adapter.data.DeleteDevice;
 import com.lewtsu.android.doorbell.adapter.data.MapIconText;
-import com.lewtsu.android.doorbell.adapter.data.MissedCall;
-import com.lewtsu.android.doorbell.adapter.data.Options;
-import com.lewtsu.android.doorbell.adapter.data.ViewLog;
 
-public class MenuActivity extends Activity {
+public class OptionsActivity extends Activity {
 
     private static MapIconText[] iconTexts = new MapIconText[]{
-            new Camera(R.drawable.lock, "Camera"),
-            new MissedCall(R.drawable.lock, "Missed Call"),
-            new ViewLog(R.drawable.lock, "View Log"),
-            new Options(R.drawable.lock, "Options")
+            new ChangePasswordDevice(R.drawable.lock, "Change password device"),
+            new ChangePin(R.drawable.lock, "Change PIN"),
+            new DeleteDevice(R.drawable.lock, "Delete device")
     };
 
     private ListView listView;
@@ -31,11 +29,11 @@ public class MenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_options);
 
         arrayAdapter = new IconText(this, R.layout.list_image_text, iconTexts);
 
-        listView = (ListView) findViewById(R.id.list_menu_1);
+        listView = (ListView) findViewById(R.id.list_options_1);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -48,7 +46,6 @@ public class MenuActivity extends Activity {
                 }
             }
         });
-
     }
 
 }

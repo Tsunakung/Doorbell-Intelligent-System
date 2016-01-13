@@ -9,8 +9,9 @@
     <string name="title_activity_login">Locked</string>
     <string name="title_activity_menu">Main Menu</string>
     <string name="title_activity_security_connect_device">Security Login</string>
-    <string name="title_activity_tab1">Tab1Activity</string>
-    <string name="title_activity_tab2">Tab2Activity</string>
-    <string name="title_activity_tab3">Tab3Activity</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_missedcall">MissedCallActivity</string>
+    <string name="title_activity_viewlog">ViewLogActivity</string>
     <string name="title_activity_list_menu">list_menu</string>
+    <string name="title_activity_options">OptionsActivity</string>
 </resources>

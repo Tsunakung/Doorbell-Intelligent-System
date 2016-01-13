@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.lewtsu.android.doorbell.activity.menu.Tab1Activity">
+    tools:context="com.lewtsu.android.doorbell.activity.menu.CameraActivity">
 
     <VideoView
         android:id="@+id/videoview_tab1_1"

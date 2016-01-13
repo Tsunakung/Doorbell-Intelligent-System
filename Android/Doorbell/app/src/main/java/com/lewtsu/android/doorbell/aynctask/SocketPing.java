@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.lewtsu.android.doorbell.constant.Constant;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ConnectException;

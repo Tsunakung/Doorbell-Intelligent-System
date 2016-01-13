@@ -36,7 +36,7 @@ public class ConnectDeviceActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //ipConnect = "27.254.150.62";
-                if(ipConnect == null) {
+                if (ipConnect == null) {
                     scanDevice();
                     return;
                 }

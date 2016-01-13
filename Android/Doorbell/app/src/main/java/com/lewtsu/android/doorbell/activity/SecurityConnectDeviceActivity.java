@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -152,9 +151,9 @@ public class SecurityConnectDeviceActivity extends Activity {
         editTextIP.setEnabled(true);
         editTextPassword.setEnabled(true);
         btnConnect.setText("Connect");
-        if(responseToast != null) {
+        if (responseToast != null) {
             Toast.makeText(SecurityConnectDeviceActivity.this, responseToast, Toast.LENGTH_SHORT).show();
-        } else if(intent != null) {
+        } else if (intent != null) {
             startActivity(intent);
             finish();
         }
