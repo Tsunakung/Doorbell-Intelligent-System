@@ -1,60 +1,50 @@
 package com.lewtsu.android.doorbell.activity;
 
-import android.app.TabActivity;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TabHost;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.activity.menu.Tab1Activity;
-import com.lewtsu.android.doorbell.activity.menu.Tab2Activity;
-import com.lewtsu.android.doorbell.activity.menu.Tab3Activity;
-import com.lewtsu.android.doorbell.constant.Constant;
+import com.lewtsu.android.doorbell.adapter.IHandleItem;
+import com.lewtsu.android.doorbell.adapter.IconText;
+import com.lewtsu.android.doorbell.adapter.data.Camera;
+import com.lewtsu.android.doorbell.adapter.data.MapIconText;
+import com.lewtsu.android.doorbell.adapter.data.MissedCall;
+import com.lewtsu.android.doorbell.adapter.data.Options;
+import com.lewtsu.android.doorbell.adapter.data.ViewLog;
 
-public class MenuActivity extends TabActivity {
+public class MenuActivity extends Activity {
 
-    private TabHost tabHost;
+    //private static String[] itemName = new String[] {"Camera", "Missed Call", "Log", "Options"};
+    private static MapIconText[] iconTexts = new MapIconText[]{
+            new Camera(R.drawable.lock, "Camera"),
+            new MissedCall(R.drawable.lock, "Missed Call"),
+            new ViewLog(R.drawable.lock, "View Log"),
+            new Options(R.drawable.lock, "Options")
+    };
+    private static IconText arrayAdapter;
+    private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        tabHost = (TabHost) findViewById(android.R.id.tabhost);
 
-        TabHost.TabSpec tab1 = tabHost.newTabSpec("Tab1");
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("Tab2");
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("Tab3");
+        arrayAdapter = new IconText(this, R.layout.list_image_text, iconTexts);
 
-        tab1.setIndicator("Tab1");
-        tab1.setContent(new Intent(this, Tab1Activity.class));
 
-        tab2.setIndicator("Tab2");
-        tab2.setContent(new Intent(this, Tab2Activity.class));
+        listView = (ListView) findViewById(R.id.list_menu_1);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((IHandleItem) iconTexts[position]).hanndle(parent, view, position, id);
+            }
+        });
 
-        tab3.setIndicator("Tab3");
-        tab3.setContent(new Intent(this, Tab3Activity.class));
-
-        tabHost.addTab(tab1);
-        tabHost.addTab(tab2);
-        tabHost.addTab(tab3);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        Log.d(Constant.TAG, id + " " + R.id.action_settings);
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

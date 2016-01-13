@@ -12,4 +12,5 @@
     <string name="title_activity_tab1">Tab1Activity</string>
     <string name="title_activity_tab2">Tab2Activity</string>
     <string name="title_activity_tab3">Tab3Activity</string>
+    <string name="title_activity_list_menu">list_menu</string>
 </resources>

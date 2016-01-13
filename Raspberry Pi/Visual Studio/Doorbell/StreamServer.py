@@ -15,24 +15,24 @@ class StreamServer(threading.Thread):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(17,GPIO.IN)
 
-    def streaming_start (command,delay):
+    def streaming_start (self, command, delay):
         time.sleep(delay)
         os.system(command)
 
-    def prepare_stream(ip):    
+    def prepare_stream(self, ip):    
 	    try:
             thread.start_new_thread(streaming_start,("raspivid -o - -n -t 9999999 -w 320 -h 200 --hflip | cvlc -vvv stream:///dev/stdin --sout '#standard{access=http,mux=ts,dst="+ip+":8554}' :demux=h264",2))
             thread.start_new_thread(streaming_start,("cvlc -vvv alsa://hw:1,0 --sout '#transcode{acodec=mpga,ab=128}:standard{access=http,mux=ts,dst="+ip+":8555}'",4))
         except:
             print "Error"
 
-    def auto_start():
+    def auto_start(self):
         try:
             thread.start_new_thread(streaming_start,("sudo python /home/pi/StartSocketForManageWifi.py",4))
         except:
             print "Error AutoStart"
 
-    def take_photo():
+    def take_photo(self):
         try:
              thread.start_new_thread(streaming_start,("python /home/pi/CodePython/testPythonTakePhoto.py",4))
         except:
