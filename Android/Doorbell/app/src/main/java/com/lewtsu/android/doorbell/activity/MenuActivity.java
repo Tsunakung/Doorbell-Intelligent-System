@@ -52,7 +52,7 @@ public class MenuActivity extends Activity {
             }
         });
 
-        startService(new Intent(MenuActivity.this, CallingService.class));
+        //startService(new Intent(MenuActivity.this, CallingService.class));
     }
 
     @Override
