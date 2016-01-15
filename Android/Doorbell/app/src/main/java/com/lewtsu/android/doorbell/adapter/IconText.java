@@ -16,10 +16,12 @@ public class IconText extends ArrayAdapter<MapIconText> {
 
     private final Context context;
     private MapIconText[] mapIconTexts;
+    private int resource;
 
     public IconText(Context context, int resource, MapIconText[] pmapIconTexts) {
         super(context, resource, pmapIconTexts);
         this.context = context;
+        this.resource = resource;
         mapIconTexts = pmapIconTexts;
     }
 
@@ -29,7 +31,7 @@ public class IconText extends ArrayAdapter<MapIconText> {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_image_text, null);
+            convertView = inflater.inflate(resource, null);
 
             holder = new HolderIconText();
             holder.icon = (ImageView) convertView.findViewById(R.id.icon);

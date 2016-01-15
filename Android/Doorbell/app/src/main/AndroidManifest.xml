@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -52,7 +53,24 @@
             android:label="@string/title_activity_viewlog" />
         <activity
             android:name=".activity.menu.OptionsActivity"
-            android:label="@string/title_activity_options"></activity>
+            android:label="@string/title_activity_options" />
+        <activity
+            android:name=".activity.options.ChangePasswordDeviceActivity"
+            android:label="@string/title_activity_change_password_device"></activity>
+        <activity
+            android:name=".activity.options.ChangePinActivity"
+            android:label="@string/title_activity_change_pin"></activity>
+        <activity
+            android:name=".activity.options.DeleteDeviceActivity"
+            android:label="@string/title_activity_delete_device"></activity>
+
+        <receiver android:name=".service.receive.OnBootsReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.CallingService" />
     </application>
 
 </manifest>

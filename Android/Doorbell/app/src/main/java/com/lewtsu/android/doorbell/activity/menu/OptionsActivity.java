@@ -31,7 +31,7 @@ public class OptionsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
-        arrayAdapter = new IconText(this, R.layout.list_image_text, iconTexts);
+        arrayAdapter = new IconText(this, R.layout.list_image_text_horizontal, iconTexts);
 
         listView = (ListView) findViewById(R.id.list_options_1);
         listView.setAdapter(arrayAdapter);
