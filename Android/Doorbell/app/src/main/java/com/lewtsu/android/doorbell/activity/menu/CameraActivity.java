@@ -134,7 +134,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback, 
         try {
             if (media.length() > 0) {
                 Toast toast = Toast.makeText(this, media, Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                //toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
             }
             libvlc = LibVLC.getInstance();

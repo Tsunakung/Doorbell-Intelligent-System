@@ -33,7 +33,7 @@
         android:layout_above="@+id/txt_securityconnectdevice_2"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:width="200dp"
+        android:width="350dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPassword"
@@ -43,11 +43,11 @@
         android:id="@+id/txt_securityconnectdevice_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/edit_securityconnectdevice_1"
-        android:layout_alignLeft="@+id/txt_securityconnectdevice_2"
-        android:layout_alignStart="@+id/txt_securityconnectdevice_2"
         android:text="Password Device"
-        android:textSize="24dp" />
+        android:textSize="24dp"
+        android:layout_above="@+id/edit_securityconnectdevice_1"
+        android:layout_alignLeft="@+id/edit_securityconnectdevice_1"
+        android:layout_alignStart="@+id/edit_securityconnectdevice_1" />
 
     <EditText
         android:id="@+id/edit_securityconnectdevice_2"
@@ -57,7 +57,7 @@
         android:layout_alignLeft="@+id/edit_securityconnectdevice_1"
         android:layout_alignStart="@+id/edit_securityconnectdevice_1"
         android:layout_marginBottom="30dp"
-        android:width="200dp"
+        android:width="350dp"
         android:gravity="center"
         android:singleLine="true"
         android:textSize="20dp" />

@@ -13,26 +13,32 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.Scanner;
 
-public class SocketPing extends AsyncTask<String, Void, Boolean> {
+public class SocketChangePasswordDevice extends AsyncTask<String, Void, String> {
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected String doInBackground(String... params) {
         String ip = params[0];
-        boolean isDoorbell = false;
+        String password = params[1];
+        String newPassword = params[2];
+        String response = null;
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, Constant.PING_PORT);
 
             Socket socket = new Socket();
-            socket.connect(inetSocketAddress, 100);
+            socket.connect(inetSocketAddress, 3000);
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             Scanner in = new Scanner(socket.getInputStream());
 
-            out.println("Ping");
+            out.println("ChangePasswordDevice");
+            out.flush();
+            out.println(password);
+            out.flush();
+            out.println(newPassword);
             out.flush();
 
             String receive = in.nextLine();
 
-            isDoorbell = receive.equalsIgnoreCase("true");
+            response = receive;
 
             out.close();
             in.close();
@@ -46,6 +52,6 @@ public class SocketPing extends AsyncTask<String, Void, Boolean> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return isDoorbell;
+        return response;
     }
 }
