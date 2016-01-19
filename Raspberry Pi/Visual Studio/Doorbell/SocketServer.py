@@ -73,36 +73,33 @@ class _ClientManageWifi(_ClientThread):
             print 'Exit Modify Wifi'
             os.system("sudo reboot")
 
-class SocketServer(threading.Thread):
+host = socket.gethostname()                           
+port = 8552
+threads = []
+socketserver = socket.socket(socket.AF_INET, socket.SOCK_STREAM)                                         
+print 'Open socket {}:{}'.format(socket.gethostbyname(host), port)
+socketserver.bind((host, port))                                  
+socketserver.listen(10)     
 
-    def run(self):
-        host = socket.gethostname()                           
-        port = 8552
-        threads = []
-        socketserver = socket.socket(socket.AF_INET, socket.SOCK_STREAM)                                         
-        print 'Open socket {}:{}'.format(socket.gethostbyname(host), port)
-        socketserver.bind((host, port))                                  
-        socketserver.listen(10)     
+while True:
+    clientsocket,addr = socketserver.accept()
+    print 'Connection from {}'.format(str(addr))
+    type = clientsocket.recv(1024).decode("UTF-8").rstrip()
+    print 'Type {}'.format(type)
+    newThread = None
 
-        while True:
-            clientsocket,addr = socketserver.accept()
-            print 'Connection from {}'.format(str(addr))
-            type = clientsocket.recv(1024).decode("UTF-8").rstrip()
-            print 'Type {}'.format(type)
-            newThread = None
+    if type == 'Ping':
+        newThread = _ClientPing(clientsocket, addr, threads)
+    elif type == 'Password':
+        newThread = _ClientPassword(clientsocket, addr, threads)
+    elif type == 'ManageWifi':
+        newThread = _ClientManageWifi(clientsocket, addr, threads)
 
-            if type == 'Ping':
-                newThread = _ClientPing(clientsocket, addr, threads)
-            elif type == 'Password':
-                newThread = _ClientPassword(clientsocket, addr, threads)
-            elif type == 'ManageWifi':
-                newThread = _ClientManageWifi(clientsocket, addr, threads)
+    if newThread != None:
+        newThread.start()
+        threads.append(newThread)
 
-            if newThread != None:
-                newThread.start()
-                threads.append(newThread)
+for t in threads:
+    t.join()
 
-        for t in threads:
-            t.join()
-
-        socketserver.close()
+socketserver.close()
