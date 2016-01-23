@@ -1,7 +1,7 @@
 package com.lewtsu.android.doorbell.activity.options;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +13,7 @@ import com.lewtsu.android.doorbell.constant.Constant;
 
 import org.json.JSONException;
 
-public class ChangePinActivity extends AppCompatActivity {
+public class ChangePinActivity extends Activity {
 
     private EditText editPin, editNewPin, editCoonfirmPin;
     private Button btn;
@@ -46,6 +46,8 @@ public class ChangePinActivity extends AppCompatActivity {
                     responseToast = "PIN incorrect";
                 } else if (!newPin.equalsIgnoreCase(confirmNewPin)) {
                     responseToast = "New PIN does not match";
+                } else if(newPin.length() != 4) {
+                    responseToast = "PIN require 4 character";
                 } else {
                     responseToast = "true";
                     try {

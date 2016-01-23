@@ -1,63 +1,110 @@
 package com.lewtsu.android.doorbell.activity;
 
-import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TabHost;
 
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.adapter.IHandleItem;
-import com.lewtsu.android.doorbell.adapter.IconText;
-import com.lewtsu.android.doorbell.adapter.data.Camera;
-import com.lewtsu.android.doorbell.adapter.data.MapIconText;
-import com.lewtsu.android.doorbell.adapter.data.MissedCall;
-import com.lewtsu.android.doorbell.adapter.data.Options;
-import com.lewtsu.android.doorbell.adapter.data.ViewLog;
-import com.lewtsu.android.doorbell.service.CallingService;
+import com.lewtsu.android.doorbell.activity.menu.HomeActivity;
+import com.lewtsu.android.doorbell.activity.menu.OptionsActivity;
+import com.lewtsu.android.doorbell.activity.menu.ViewLogActivity;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends TabActivity {
 
-    private static MapIconText[] iconTexts = new MapIconText[]{
-            new Camera(R.drawable.lock, "Camera"),
-            new MissedCall(R.drawable.lock, "Missed Call"),
-            new ViewLog(R.drawable.lock, "View Log"),
-            new Options(R.drawable.lock, "Options")
-    };
-
-    private GridView listView;
-    private IconText arrayAdapter;
+    private TabHost tabHost;
+    private TabHost.TabSpec tab1, tab2, tab3;
+    private View view1, view2, view3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        arrayAdapter = new IconText(this, R.layout.list_image_text_vertical, iconTexts);
+        tabHost = (TabHost) findViewById(android.R.id.tabhost);
 
-        listView = (GridView) findViewById(R.id.list_menu_1);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        tab1 = tabHost.newTabSpec("Home");
+        tab2 = tabHost.newTabSpec("ViewLog");
+        tab3 = tabHost.newTabSpec("Setting");
+
+        view1 = LayoutInflater.from(this).inflate(R.layout.tabicon, getTabWidget(), false);
+        view2 = LayoutInflater.from(this).inflate(R.layout.tabicon, getTabWidget(), false);
+        view3 = LayoutInflater.from(this).inflate(R.layout.tabicon, getTabWidget(), false);
+
+        ((ImageView) view1.findViewById(R.id.imageView)).setImageResource(R.drawable.btn_home_hold);
+        ((ImageView) view2.findViewById(R.id.imageView)).setImageResource(R.drawable.btn_time);
+        ((ImageView) view3.findViewById(R.id.imageView)).setImageResource(R.drawable.btn_setting);
+
+        tab1.setIndicator(view1);
+        tab1.setContent(new Intent(this, HomeActivity.class));
+
+        tab2.setIndicator(view2);
+        tab2.setContent(new Intent(this, ViewLogActivity.class));
+
+        tab3.setIndicator(view3);
+        tab3.setContent(new Intent(this, OptionsActivity.class));
+
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
+        tabHost.addTab(tab3);
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ArrayAdapter adapt = (ArrayAdapter) parent.getAdapter();
-                if (adapt instanceof IconText) {
-                    MapIconText mapIconText = ((IconText) adapt).getItem(position);
-                    if (mapIconText instanceof IHandleItem)
-                        ((IHandleItem) mapIconText).hanndle(parent, view, position, id);
+            public void onTabChanged(String tabId) {
+                ImageView imageView = null;
+                int image = 0;
+
+                if (tabId == "Home") {
+                    imageView = ((ImageView) view1.findViewById(R.id.imageView));
+                    image = R.drawable.btn_home_hold;
+                } else if (tabId == "ViewLog") {
+                    imageView = ((ImageView) view2.findViewById(R.id.imageView));
+                    image = R.drawable.btn_time_hold;
+                } else if (tabId == "Setting") {
+                    imageView = ((ImageView) view3.findViewById(R.id.imageView));
+                    image = R.drawable.btn_setting_hold;
+                }
+
+                ((ImageView) view1.findViewById(R.id.imageView)).setImageResource(R.drawable.btn_home);
+                ((ImageView) view2.findViewById(R.id.imageView)).setImageResource(R.drawable.btn_time);
+                ((ImageView) view3.findViewById(R.id.imageView)).setImageResource(R.drawable.btn_setting);
+
+                if (imageView != null) {
+                    imageView.setImageResource(image);
                 }
             }
         });
 
-        //startService(new Intent(MenuActivity.this, CallingService.class));
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                invalidateOptionsMenu();
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        if (getCurrentActivity() instanceof ITabMenu) {
+            inflater.inflate(((ITabMenu) getCurrentActivity()).getOptionMenu(), menu);
+        }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (getCurrentActivity() instanceof ITabMenu) {
+            ((ITabMenu) getCurrentActivity()).handlerOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.lewtsu.android.doorbell.activity.menu.MissedCallActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/remove_misscall"
         android:title="@string/action_settings"
+        android:icon="@drawable/btn_bin"
         android:orderInCategory="100"
+        android:showAsAction="ifRoom"
         app:showAsAction="never" />
 </menu>

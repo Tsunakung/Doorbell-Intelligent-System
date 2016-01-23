@@ -2,6 +2,7 @@ package com.lewtsu.android.doorbell.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,8 +40,8 @@ public class SecurityConnectDeviceActivity extends Activity {
             ipConnect = extras.getString(Constant.CONNECT_IP);
         }
 
-        editTextIP = (EditText) findViewById(R.id.edit_securityconnectdevice_2);
-        editTextPassword = (EditText) findViewById(R.id.edit_securityconnectdevice_1);
+        editTextIP = (EditText) findViewById(R.id.edit_securityconnectdevice_1);
+        editTextPassword = (EditText) findViewById(R.id.edit_securityconnectdevice_2);
 
         btnConnect = (Button) findViewById(R.id.btn_securityconnectdevice_1);
 
@@ -100,9 +101,9 @@ public class SecurityConnectDeviceActivity extends Activity {
                             startActivity(intent);
                             finish();
                             */
-                            
-                            boolean isConnect = new SocketPing().execute(ipConnect).get();
-                            boolean isPassword = new SocketComparePasswordDevice().execute(ipConnect, password).get();
+
+                            boolean isConnect = new SocketPing().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipConnect).get();
+                            boolean isPassword = new SocketComparePasswordDevice().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipConnect, password).get();
                             if (ipConnect == null || ipConnect.length() == 0) {
                                 responseToast = "Please input IPAddress";
                             } else if (!isConnect) {

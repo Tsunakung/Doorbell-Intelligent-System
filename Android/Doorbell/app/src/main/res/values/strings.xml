@@ -17,4 +17,5 @@
     <string name="title_activity_change_password_device">ChangePasswordDeviceActivity</string>
     <string name="title_activity_change_pin">ChangePinActivity</string>
     <string name="title_activity_delete_device">DeleteDeviceActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>

@@ -28,6 +28,9 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
 
     public VideoVLC(Activity activity, SurfaceView surfaceView) {
         this.activity = activity;
+        this.mSurface = surfaceView;
+        this.holder = mSurface.getHolder();
+        holder.addCallback(this);
     }
 
     @Override
@@ -36,7 +39,7 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    public void surfaceChanged(SurfaceHolder surfaceholder, int format, int width, int height) {
         if (libvlc != null)
             libvlc.attachSurface(holder.getSurface(), this);
     }
@@ -110,6 +113,7 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
             list.add(new Media(libvlc, LibVLC.PathToURI(media)), false);
             libvlc.playIndex(0);
         } catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(activity, "Error creating player!", Toast.LENGTH_LONG).show();
         }
     }
@@ -124,6 +128,7 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
         libvlc.closeAout();
         libvlc.destroy();
         libvlc = null;
+
         mVideoWidth = 0;
         mVideoHeight = 0;
     }

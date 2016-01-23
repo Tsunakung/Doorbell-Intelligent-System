@@ -29,7 +29,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Main.py" />
+    <Compile Include="SocketGetSound.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SocketServer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SocketStreamSound.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StreamServer.py">

@@ -9,10 +9,41 @@
         android:layout_height="match_parent">
 
         <SurfaceView
-            android:id="@+id/surface_tab1_1"
+            android:id="@+id/surface_camera_1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_screenshot"
+                android:id="@+id/imgbtn_camera_1" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_unlock_camera"
+                android:id="@+id/imgbtn_camera_2" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_sound_hold"
+                android:id="@+id/imgbtn_camera_3" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_voice_hold"
+                android:id="@+id/imgbtn_camera_4" />
+        </LinearLayout>
 
     </FrameLayout>
 

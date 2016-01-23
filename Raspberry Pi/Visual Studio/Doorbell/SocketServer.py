@@ -1,15 +1,15 @@
 ﻿import socket                                         
 import threading
 import os
+import MSql
 from wifi import Cell,Scheme
 
 class _ClientThread(threading.Thread):
 
-    def __init__(self, pclientsocket, paddr, pthread):
+    def __init__(self, pclientsocket, paddr):
         threading.Thread.__init__(self)
         self.clientsocket = pclientsocket
         self.addr = paddr
-        self.thread = pthread
 
     def handler(self):
         return
@@ -17,7 +17,44 @@ class _ClientThread(threading.Thread):
     def run(self):
         self.handler()
         self.clientsocket.close()
-        self.thread.remove(self)
+
+class _ClientUpdateMiss(_ClientThread):
+
+    def handler(self):
+        sql = MSql.MSql()
+        getTime = self.clientsocket.recv(1024).decode("UTF-8").rstrip()
+        #sql.update('UPDATE ' + sql.tableName + ' SET status = \'End@Missed\'' + ' WHERE time = \'' + getTime + '\'')
+        sql.update("UPDATE {} SET status = 'End@Missed' WHERE time = '{}'".format(sql.tableName, getTime))
+        sql.close()
+
+class _ClientViewMiss(_ClientThread):
+
+    def handler(self):
+        sql = MSql.MSql()
+        #select = sql.select('SELECT * FROM ' + sql.tableName + ' WHERE ' + sql.fieldStatus + ' == \'Miss\'')
+        select = sql.select("SELECT * FROM {} WHERE {} == 'Miss'".format(sql.tableName, sql.fieldStatus))
+        self.clientsocket.send(select.rowcount)
+        for time, useraccept in select:
+            self.clientsocket.send(time.encode("UTF-8"))
+            self.clientsocket.send(useraccept.encode("UTF-8"))
+            #Send File Image
+
+        sql.close()
+
+class _ClientViewLog(_ClientThread):
+
+    def handler(self):
+        sql = MSql.MSql()
+        #select = sql.select('SELECT * FROM ' + sql.tableName + ' WHERE ' + sql.fieldStatus + ' != \'Miss\'')
+        select = sql.select("SELECT * FROM {} WHERE {} != 'Miss'".format(sql.tableName, sql.fieldStatus))
+        self.clientsocket.send(select.rowcount)
+        for time, useraccept, status in select:
+            self.clientsocket.send(time.encode("UTF-8"))
+            self.clientsocket.send(useraccept.encode("UTF-8"))
+            self.clientsocket.send(status.encode("UTF-8"))
+            #Send File Image
+
+        sql.close()
 
 class _ClientPing(_ClientThread):
 
@@ -89,17 +126,13 @@ while True:
     newThread = None
 
     if type == 'Ping':
-        newThread = _ClientPing(clientsocket, addr, threads)
+        newThread = _ClientPing(clientsocket, addr)
     elif type == 'Password':
-        newThread = _ClientPassword(clientsocket, addr, threads)
+        newThread = _ClientPassword(clientsocket, addr)
     elif type == 'ManageWifi':
-        newThread = _ClientManageWifi(clientsocket, addr, threads)
+        newThread = _ClientManageWifi(clientsocket, addr)
 
     if newThread != None:
         newThread.start()
-        threads.append(newThread)
-
-for t in threads:
-    t.join()
 
 socketserver.close()

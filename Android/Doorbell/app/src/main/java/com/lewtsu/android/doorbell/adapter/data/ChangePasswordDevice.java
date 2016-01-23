@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.lewtsu.android.doorbell.activity.menu.MissedCallActivity;
 import com.lewtsu.android.doorbell.activity.options.ChangePasswordDeviceActivity;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
 

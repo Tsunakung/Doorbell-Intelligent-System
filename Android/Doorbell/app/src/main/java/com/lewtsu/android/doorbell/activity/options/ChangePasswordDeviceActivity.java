@@ -1,5 +1,6 @@
 package com.lewtsu.android.doorbell.activity.options;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -53,7 +54,7 @@ public class ChangePasswordDeviceActivity extends AppCompatActivity {
                             responseToast = "New Password does not match";
                         } else {
                             try {
-                                responseToast = new SocketChangePasswordDevice().execute(ipConnect, password, newPassword).get();
+                                responseToast = new SocketChangePasswordDevice().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipConnect, password, newPassword).get();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {

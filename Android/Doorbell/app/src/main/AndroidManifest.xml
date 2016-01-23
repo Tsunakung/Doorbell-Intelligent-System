@@ -26,43 +26,60 @@
         </activity>
         <activity
             android:name=".activity.FirstLoginActivity"
-            android:label="@string/title_activity_first_login" />
+            android:label="@string/title_activity_first_login"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ConfirmFirstLoginActivity"
-            android:label="@string/title_activity_confirm_first_login" />
+            android:label="@string/title_activity_confirm_first_login"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ConnectDeviceActivity"
-            android:label="@string/title_activity_connect_device" />
+            android:label="@string/title_activity_connect_device"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.MenuActivity"
-            android:label="@string/title_activity_menu" />
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.SecurityConnectDeviceActivity"
-            android:label="@string/title_activity_security_connect_device" />
+            android:label="@string/title_activity_security_connect_device"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.CameraActivity"
-            android:label="@string/title_activity_camera" />
+            android:label="@string/title_activity_camera"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.MissedCallActivity"
-            android:label="@string/title_activity_missedcall" />
+            android:label="@string/title_activity_missedcall"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.ViewLogActivity"
-            android:label="@string/title_activity_viewlog" />
+            android:label="@string/title_activity_viewlog"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.OptionsActivity"
-            android:label="@string/title_activity_options" />
+            android:label="@string/title_activity_options"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.options.ChangePasswordDeviceActivity"
-            android:label="@string/title_activity_change_password_device"></activity>
+            android:label="@string/title_activity_change_password_device"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.options.ChangePinActivity"
-            android:label="@string/title_activity_change_pin"></activity>
+            android:label="@string/title_activity_change_pin"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.options.DeleteDeviceActivity"
-            android:label="@string/title_activity_delete_device"></activity>
+            android:label="@string/title_activity_delete_device"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.menu.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme" />
 
         <receiver android:name=".service.receive.OnBootsReceiver">
             <intent-filter>
@@ -71,6 +88,7 @@
         </receiver>
 
         <service android:name=".service.CallingService" />
+
     </application>
 
 </manifest>

@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
+import com.lewtsu.android.doorbell.aynctask.SocketGetSound;
+import com.lewtsu.android.doorbell.aynctask.SocketSendSound;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
 import com.lewtsu.android.doorbell.vlc.VideoVLC;
@@ -16,13 +21,60 @@ public class CameraActivity extends Activity {
 
     private VideoVLC videoVLC;
 
+    private ImageButton screenshot, unlock, sound, voice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        SurfaceView mSurfaceVideo = (SurfaceView) findViewById(R.id.surface_tab1_1);
+        SurfaceView mSurfaceVideo = (SurfaceView) findViewById(R.id.surface_camera_1);
         videoVLC = new VideoVLC(this, mSurfaceVideo);
+
+        screenshot = (ImageButton) findViewById(R.id.imgbtn_camera_1);
+        unlock = (ImageButton) findViewById(R.id.imgbtn_camera_2);
+        sound = (ImageButton) findViewById(R.id.imgbtn_camera_3);
+        voice = (ImageButton) findViewById(R.id.imgbtn_camera_4);
+
+        screenshot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CameraActivity.this, "screenshot", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        unlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(CameraActivity.this, "unlock", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SocketGetSound.isStart()) {
+                    sound.setImageResource(R.drawable.btn_sound_hold);
+                    SocketGetSound.stop();
+                } else {
+                    sound.setImageResource(R.drawable.btn_sound);
+                    SocketGetSound.start(CameraActivity.this, sound);
+                }
+            }
+        });
+
+        voice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SocketSendSound.isStart()) {
+                    voice.setImageResource(R.drawable.btn_voice_hold);
+                    SocketSendSound.stop();
+                } else {
+                    voice.setImageResource(R.drawable.btn_voice);
+                    SocketSendSound.start(CameraActivity.this, voice);
+                }
+            }
+        });
 
     }
 
@@ -47,12 +99,16 @@ public class CameraActivity extends Activity {
     protected void onPause() {
         super.onPause();
         videoVLC.releasePlayer();
+        SocketGetSound.stop();
+        SocketSendSound.stop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         videoVLC.releasePlayer();
+        SocketGetSound.stop();
+        SocketSendSound.stop();
     }
 
 }

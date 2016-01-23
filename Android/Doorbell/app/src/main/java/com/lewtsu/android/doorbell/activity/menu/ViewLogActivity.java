@@ -1,11 +1,11 @@
 package com.lewtsu.android.doorbell.activity.menu;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.lewtsu.android.doorbell.R;
 
-public class ViewLogActivity extends AppCompatActivity {
+public class ViewLogActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,6 +3,7 @@ package com.lewtsu.android.doorbell.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
@@ -35,7 +36,6 @@ public class ConnectDeviceActivity extends Activity {
         buttonConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ipConnect = "27.254.150.62";
                 if (ipConnect == null) {
                     scanDevice();
                     return;
@@ -85,7 +85,7 @@ public class ConnectDeviceActivity extends Activity {
                 for (int i = 0; i < 256; ++i) {
                     ipAddress = ipSplit[0] + "." + ipSplit[1] + "." + ipSplit[2] + "." + i;
                     try {
-                        isCamera = new SocketPing().execute(ipAddress).get();
+                        isCamera = new SocketPing().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipAddress).get();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
