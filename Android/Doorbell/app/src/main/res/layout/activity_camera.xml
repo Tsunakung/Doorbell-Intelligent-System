@@ -15,34 +15,38 @@
             android:layout_gravity="center" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|top">
+            android:layout_gravity="right|top"
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imgbtn_camera_1"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/btn_screenshot"
-                android:id="@+id/imgbtn_camera_1" />
+                android:layout_marginRight="20dp"
+                android:src="@drawable/btn_screenshot" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imgbtn_camera_2"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/btn_unlock_camera"
-                android:id="@+id/imgbtn_camera_2" />
+                android:layout_marginRight="20dp"
+                android:src="@drawable/btn_unlock_camera" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imgbtn_camera_3"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/btn_sound_hold"
-                android:id="@+id/imgbtn_camera_3" />
+                android:layout_marginRight="20dp"
+                android:src="@drawable/btn_sound_hold" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imgbtn_camera_4"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/btn_voice_hold"
-                android:id="@+id/imgbtn_camera_4" />
+                android:layout_marginRight="20dp"
+                android:src="@drawable/btn_voice_hold" />
         </LinearLayout>
 
     </FrameLayout>

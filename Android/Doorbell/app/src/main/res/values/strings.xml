@@ -18,4 +18,6 @@
     <string name="title_activity_change_pin">ChangePinActivity</string>
     <string name="title_activity_delete_device">DeleteDeviceActivity</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_manage_wifi">ManageWifiActivity</string>
+    <string name="title_activity_calling">CallingActivity</string>
 </resources>

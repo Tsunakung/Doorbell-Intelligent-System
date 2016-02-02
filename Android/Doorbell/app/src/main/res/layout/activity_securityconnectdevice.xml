@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relative_securityconnectdevice_1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background">
 
     <LinearLayout
         android:id="@+id/linear_securityconnectdevice_1"
@@ -19,18 +20,22 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="IP Device"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/edit_securityconnectdevice_1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:width="350dp"
+            android:layout_marginTop="20dp"
+            android:width="300dp"
+            android:background="#FFFFFF"
             android:ems="10"
             android:gravity="center"
             android:inputType="text"
-            android:textSize="20dp" />
+            android:textSize="32dp"
+            android:autoText="false" />
 
         <TextView
             android:id="@+id/txt_securityconnectdevice_2"
@@ -39,26 +44,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="Password Device"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:textColor="#FFFFFF" />
 
         <EditText
             android:id="@+id/edit_securityconnectdevice_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:width="350dp"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textPassword"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/txt_securityconnectdevice_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:text="Detail"
+            android:layout_marginTop="20dp"
+            android:width="300dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPassword"
             android:textSize="32dp" />
 
         <Button
@@ -69,7 +68,8 @@
             android:layout_marginTop="100dp"
             android:width="300dp"
             android:height="75dp"
-            android:text="Change PIN"
-            android:textSize="24dp" />
+            android:text="Connect"
+            android:textSize="24dp"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 </RelativeLayout>

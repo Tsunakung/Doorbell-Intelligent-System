@@ -5,7 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
@@ -21,7 +21,7 @@ public class CameraActivity extends Activity {
 
     private VideoVLC videoVLC;
 
-    private ImageButton screenshot, unlock, sound, voice;
+    private ImageView screenshot, unlock, sound, voice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,10 @@ public class CameraActivity extends Activity {
         SurfaceView mSurfaceVideo = (SurfaceView) findViewById(R.id.surface_camera_1);
         videoVLC = new VideoVLC(this, mSurfaceVideo);
 
-        screenshot = (ImageButton) findViewById(R.id.imgbtn_camera_1);
-        unlock = (ImageButton) findViewById(R.id.imgbtn_camera_2);
-        sound = (ImageButton) findViewById(R.id.imgbtn_camera_3);
-        voice = (ImageButton) findViewById(R.id.imgbtn_camera_4);
+        screenshot = (ImageView) findViewById(R.id.imgbtn_camera_1);
+        unlock = (ImageView) findViewById(R.id.imgbtn_camera_2);
+        sound = (ImageView) findViewById(R.id.imgbtn_camera_3);
+        voice = (ImageView) findViewById(R.id.imgbtn_camera_4);
 
         screenshot.setOnClickListener(new View.OnClickListener() {
             @Override

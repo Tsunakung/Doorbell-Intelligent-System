@@ -27,6 +27,7 @@ public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean
 
             out.println("Password");
             out.flush();
+            Thread.sleep(100);
             out.println(password);
             out.flush();
 
@@ -39,6 +40,8 @@ public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return isPassword;

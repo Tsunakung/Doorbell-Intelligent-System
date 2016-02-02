@@ -10,10 +10,22 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.lewtsu.android.doorbell.R;
+import com.lewtsu.android.doorbell.activity.ConnectDeviceActivity;
+import com.lewtsu.android.doorbell.aynctask.SocketPing;
+import com.lewtsu.android.doorbell.config.Config;
+import com.lewtsu.android.doorbell.constant.Constant;
+
+import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
 
 public class HomeActivity extends Activity {
 
     private ImageButton btnCamera, btnMissedCall, btnUnlock;
+    private SocketPing ping;
+    private boolean connected, pingStart;
+    private int imageCamera, imageCameraHold;
+    private Thread threadPing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +39,24 @@ public class HomeActivity extends Activity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
-                startActivity(intent);
+                if (connected) {
+                    Intent intent = new Intent(HomeActivity.this, CameraActivity.class);
+                    startActivity(intent);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                    builder.setMessage("Do you want to\r\ndisconnect from device ?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Config.getConfig().remove(Constant.CONNECT_IP);
+                                    Config.writeConfig();
+                                    Intent intent = new Intent(HomeActivity.this, ConnectDeviceActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("No", null).show();
+                }
             }
         });
 
@@ -36,9 +64,9 @@ public class HomeActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
-                    btnCamera.setImageResource(R.drawable.btn_camera_hold);
+                    btnCamera.setImageResource(imageCameraHold);
                 else if (event.getAction() == MotionEvent.ACTION_UP)
-                    btnCamera.setImageResource(R.drawable.btn_camera);
+                    btnCamera.setImageResource(imageCamera);
                 return false;
             }
         });
@@ -66,7 +94,7 @@ public class HomeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                builder.setMessage("Are you sure?")
+                builder.setMessage("Are you sure ?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -88,6 +116,72 @@ public class HomeActivity extends Activity {
             }
         });
 
+    }
+
+    private void startThreadPing() {
+        if(threadPing != null && threadPing.getState() != Thread.State.TERMINATED)
+            return;
+        pingStart = true;
+        threadPing = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(pingStart) {
+                    connected = false;
+                    ping = new SocketPing();
+                    try {
+                        connected = ping.execute(Config.getConfig().getString(Constant.CONNECT_IP)).get();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(connected) {
+                                    btnCamera.setImageResource(R.drawable.btn_camera_online);
+                                    imageCamera = R.drawable.btn_camera_online;
+                                    imageCameraHold = R.drawable.btn_camera_online_hold;
+                                } else {
+                                    btnCamera.setImageResource(R.drawable.btn_camera_offline);
+                                    imageCamera = R.drawable.btn_camera_offline;
+                                    imageCameraHold = R.drawable.btn_camera_offline_hold;
+                                }
+                            }
+                        });
+
+                        Thread.sleep(5000);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        threadPing.start();
+    }
+
+    private void stopThreadPing() {
+        if(threadPing == null || threadPing.getState() == Thread.State.TERMINATED)
+            return;
+        pingStart = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startThreadPing();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopThreadPing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopThreadPing();
     }
 
 }

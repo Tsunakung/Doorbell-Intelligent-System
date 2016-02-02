@@ -6,8 +6,9 @@ import android.widget.AdapterView;
 
 import com.lewtsu.android.doorbell.activity.options.ChangePinActivity;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
+import com.lewtsu.android.doorbell.adapter.data.Map.Map1;
 
-public class ChangePin extends MapIconText implements IHandleItem {
+public class ChangePin extends Map1 implements IHandleItem {
 
     public ChangePin(int image, String text) {
         super(image, text);

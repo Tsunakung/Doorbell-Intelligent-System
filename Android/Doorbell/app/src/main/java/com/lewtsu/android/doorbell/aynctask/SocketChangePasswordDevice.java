@@ -31,8 +31,10 @@ public class SocketChangePasswordDevice extends AsyncTask<String, Void, String> 
 
             out.println("ChangePasswordDevice");
             out.flush();
+            Thread.sleep(100);
             out.println(password);
             out.flush();
+            Thread.sleep(100);
             out.println(newPassword);
             out.flush();
 
@@ -50,6 +52,8 @@ public class SocketChangePasswordDevice extends AsyncTask<String, Void, String> 
         } catch (ConnectException e) {
             Log.e(Constant.TAG, "Can't connect " + ip);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return response;

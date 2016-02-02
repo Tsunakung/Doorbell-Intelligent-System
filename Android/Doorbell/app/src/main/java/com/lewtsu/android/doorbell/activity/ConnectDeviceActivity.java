@@ -20,8 +20,10 @@ import java.util.concurrent.ExecutionException;
 public class ConnectDeviceActivity extends Activity {
 
     private String ipConnect;
-    private TextView textViewIpConnect, textViewStatus;
+    //private TextView textViewIpConnect, textViewStatus;
+    private TextView textViewIpConnect;
     private Button buttonConnect, buttonManually;
+    private Thread threadScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class ConnectDeviceActivity extends Activity {
         setContentView(R.layout.activity_connectdevice);
 
         textViewIpConnect = (TextView) findViewById(R.id.txt_connectdevice_1);
-        textViewStatus = (TextView) findViewById(R.id.txt_connectdevice_2);
+        //textViewStatus = (TextView) findViewById(R.id.txt_connectdevice_2);
         buttonConnect = (Button) findViewById(R.id.btn_connectdevice_1);
         buttonManually = (Button) findViewById(R.id.btn_connectdevice_2);
 
@@ -61,16 +63,22 @@ public class ConnectDeviceActivity extends Activity {
     }
 
     private void scanDevice() {
-        new Thread(new Runnable() {
+        if(threadScan != null && threadScan.getState() != Thread.State.TERMINATED)
+            return;
+        threadScan = new Thread(new Runnable() {
             @Override
             public void run() {
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         textViewIpConnect.setText("Scanning...");
-                        textViewIpConnect.setTextColor(0xFF0000FF);
+                        textViewIpConnect.setTextColor(0xFFA54800);
+                        buttonConnect.setText("Scanning...");
+                        buttonConnect.setEnabled(false);
                     }
                 });
+
 
                 WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
                 String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
@@ -97,24 +105,30 @@ public class ConnectDeviceActivity extends Activity {
                     }
                 }
 
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        buttonConnect.setEnabled(true);
                         if (ipConnect != null) {
-                            textViewStatus.setText("Online");
+                            //textViewStatus.setText("Online");
                             textViewIpConnect.setText("IP : " + ipConnect);
-                            textViewStatus.setTextColor(0xFF00FF00);
+                            //textViewStatus.setTextColor(0xFF00FF00);
                             textViewIpConnect.setTextColor(0xFF00FF00);
+                            buttonConnect.setText("Connect");
                         } else {
-                            textViewStatus.setText("Offline");
+                            //textViewStatus.setText("Offline");
                             textViewIpConnect.setText("Doorbell not found");
-                            textViewStatus.setTextColor(0xFFFF0000);
+                            //textViewStatus.setTextColor(0xFFFF0000);
                             textViewIpConnect.setTextColor(0xFFFF0000);
+                            buttonConnect.setText("Scan");
                         }
                     }
                 });
+
             }
-        }).start();
+        });
+        threadScan.start();
     }
 
 }

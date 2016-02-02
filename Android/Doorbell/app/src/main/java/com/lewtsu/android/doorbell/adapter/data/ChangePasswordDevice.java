@@ -6,8 +6,9 @@ import android.widget.AdapterView;
 
 import com.lewtsu.android.doorbell.activity.options.ChangePasswordDeviceActivity;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
+import com.lewtsu.android.doorbell.adapter.data.Map.Map1;
 
-public class ChangePasswordDevice extends MapIconText implements IHandleItem {
+public class ChangePasswordDevice extends Map1 implements IHandleItem {
 
     public ChangePasswordDevice(int image, String text) {
         super(image, text);

@@ -15,6 +15,7 @@ import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.activity.menu.HomeActivity;
 import com.lewtsu.android.doorbell.activity.menu.OptionsActivity;
 import com.lewtsu.android.doorbell.activity.menu.ViewLogActivity;
+import com.lewtsu.android.doorbell.service.CallingService;
 
 public class MenuActivity extends TabActivity {
 
@@ -88,6 +89,8 @@ public class MenuActivity extends TabActivity {
                 invalidateOptionsMenu();
             }
         });
+
+        //startService(new Intent(this, CallingService.class));
     }
 
     @Override

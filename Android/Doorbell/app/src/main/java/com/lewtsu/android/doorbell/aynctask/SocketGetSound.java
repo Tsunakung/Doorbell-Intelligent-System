@@ -6,8 +6,7 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.config.Config;
@@ -27,7 +26,7 @@ public class SocketGetSound extends AsyncTask<String, Void, Void> {
     private static SocketGetSound socketGetSound;
     private static Thread threadGetSound;
     private static Activity activity;
-    private static ImageButton imageButton;
+    private static ImageView imageButton;
 
     private boolean isStartGetSound;
 
@@ -37,7 +36,7 @@ public class SocketGetSound extends AsyncTask<String, Void, Void> {
         SocketGetSound.socketGetSound.isStartGetSound = false;
     }
 
-    public static void start(Activity activity, ImageButton imageButton) {
+    public static void start(Activity activity, ImageView imageButton) {
         stop();
         SocketGetSound.activity = activity;
         SocketGetSound.imageButton = imageButton;

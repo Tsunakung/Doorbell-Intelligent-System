@@ -95,8 +95,8 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
     public void createPlayer(String media) {
         releasePlayer();
         try {
-            if (media.length() > 0)
-                Toast.makeText(activity, media, Toast.LENGTH_LONG).show();
+            //if (media.length() > 0)
+            //    Toast.makeText(activity, media, Toast.LENGTH_LONG).show();
             libvlc = LibVLC.getInstance();
             libvlc.setHardwareAcceleration(LibVLC.HW_ACCELERATION_DISABLED);
             libvlc.setSubtitlesEncoding("");

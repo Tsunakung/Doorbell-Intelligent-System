@@ -17,6 +17,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,59 +28,83 @@
         <activity
             android:name=".activity.FirstLoginActivity"
             android:label="@string/title_activity_first_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ConfirmFirstLoginActivity"
             android:label="@string/title_activity_confirm_first_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ConnectDeviceActivity"
             android:label="@string/title_activity_connect_device"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.MenuActivity"
             android:label="@string/title_activity_menu"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.SecurityConnectDeviceActivity"
             android:label="@string/title_activity_security_connect_device"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.CameraActivity"
             android:label="@string/title_activity_camera"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".activity.menu.MissedCallActivity"
             android:label="@string/title_activity_missedcall"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.ViewLogActivity"
             android:label="@string/title_activity_viewlog"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.OptionsActivity"
             android:label="@string/title_activity_options"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.options.ChangePasswordDeviceActivity"
             android:label="@string/title_activity_change_password_device"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.options.ChangePinActivity"
             android:label="@string/title_activity_change_pin"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.options.DeleteDeviceActivity"
             android:label="@string/title_activity_delete_device"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.menu.HomeActivity"
             android:label="@string/title_activity_home"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.options.ManageWifiActivity"
+            android:label="@string/title_activity_manage_wifi"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CallingActivity"
+            android:label="@string/title_activity_calling"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
         <receiver android:name=".service.receive.OnBootsReceiver">
             <intent-filter>

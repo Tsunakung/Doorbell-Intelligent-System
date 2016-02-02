@@ -6,8 +6,9 @@ import android.widget.AdapterView;
 
 import com.lewtsu.android.doorbell.activity.options.DeleteDeviceActivity;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
+import com.lewtsu.android.doorbell.adapter.data.Map.Map1;
 
-public class DeleteDevice extends MapIconText implements IHandleItem {
+public class DeleteDevice extends Map1 implements IHandleItem {
 
     public DeleteDevice(int image, String text) {
         super(image, text);

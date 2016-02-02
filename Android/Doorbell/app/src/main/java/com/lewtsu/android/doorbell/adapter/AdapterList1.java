@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.adapter.data.MapIconText;
-import com.lewtsu.android.doorbell.adapter.holder.HolderIconText;
+import com.lewtsu.android.doorbell.adapter.data.Map.Map1;
+import com.lewtsu.android.doorbell.adapter.holder.Holder1;
 
-public class IconText extends ArrayAdapter<MapIconText> {
+public class AdapterList1 extends ArrayAdapter<Map1> {
 
     private final Context context;
-    private MapIconText[] mapIconTexts;
+    private Map1[] mapIconTexts;
     private int resource;
 
-    public IconText(Context context, int resource, MapIconText[] pmapIconTexts) {
+    public AdapterList1(Context context, int resource, Map1[] pmapIconTexts) {
         super(context, resource, pmapIconTexts);
         this.context = context;
         this.resource = resource;
@@ -27,22 +27,22 @@ public class IconText extends ArrayAdapter<MapIconText> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        HolderIconText holder = null;
+        Holder1 holder = null;
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(resource, null);
 
-            holder = new HolderIconText();
+            holder = new Holder1();
             holder.icon = (ImageView) convertView.findViewById(R.id.icon);
             holder.text = (TextView) convertView.findViewById(R.id.text);
 
             convertView.setTag(holder);
         } else {
-            holder = (HolderIconText) convertView.getTag();
+            holder = (Holder1) convertView.getTag();
         }
 
-        MapIconText iconText = mapIconTexts[position];
+        Map1 iconText = mapIconTexts[position];
         holder.icon.setImageResource(iconText.icon);
         holder.text.setText(iconText.str);
         return convertView;
