@@ -29,13 +29,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.e(Constant.TAG, Build.MODEL);
-        Log.e(Constant.TAG, Build.DISPLAY);
-        Log.e(Constant.TAG, Build.DEVICE);
-        Log.e(Constant.TAG, Build.ID);
-        Log.e(Constant.TAG, Build.USER);
-        Log.e(Constant.TAG, Build.HOST);
-
         Config.loadConfig();
 
         new Thread(new Runnable() {

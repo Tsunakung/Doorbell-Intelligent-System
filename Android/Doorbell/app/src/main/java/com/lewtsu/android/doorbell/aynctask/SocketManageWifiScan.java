@@ -3,8 +3,12 @@ package com.lewtsu.android.doorbell.aynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.lewtsu.android.doorbell.adapter.data.ManageWifiListView;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map2;
+import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,8 +24,17 @@ public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
 
     @Override
     protected List<Map2> doInBackground(String... params) {
-        String ip = params[0];
-        List<Map2> list = new ArrayList<Map2>();
+        List<Map2> list = new ArrayList<>();
+        String ip = null;
+        try {
+            ip = Config.getConfig().getString(Constant.CONNECT_IP);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(ip == null)
+            return list;
+
+
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, Constant.PING_PORT);
 
@@ -41,14 +54,14 @@ public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
             current = in.nextLine();
             if(current.equalsIgnoreCase("Not Connected"))
                 type = "Not Connected";
-            Map2 v = new Map2(current, type, -1);
+            Map2 v = new ManageWifiListView(current, type, -1);
             list.add(v);
             for (int i = 0; i < size; ++i) {
                 ssid = in.nextLine();
                 type = in.nextLine();
                 feq = Integer.parseInt(in.nextLine());
                 if(!ssid.equalsIgnoreCase(current)) {
-                    Map2 vv = new Map2(ssid, type, feq);
+                    Map2 vv = new ManageWifiListView(ssid, type, feq);
                     list.add(vv);
                 } else {
                     v.feq = feq;

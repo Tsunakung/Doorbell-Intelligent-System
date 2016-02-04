@@ -28,7 +28,7 @@ public class AdapterList2 extends ArrayAdapter<Map2> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Holder2 holder = null;
+        Holder2 holder;
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

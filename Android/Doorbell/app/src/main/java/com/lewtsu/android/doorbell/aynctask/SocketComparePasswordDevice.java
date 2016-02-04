@@ -2,7 +2,10 @@ package com.lewtsu.android.doorbell.aynctask;
 
 import android.os.AsyncTask;
 
+import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,9 +17,9 @@ public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean
 
     @Override
     protected Boolean doInBackground(String... params) {
+        boolean isPassword = false;
         String ip = params[0];
         String password = params[1];
-        boolean isPassword = false;
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, Constant.PING_PORT);
 

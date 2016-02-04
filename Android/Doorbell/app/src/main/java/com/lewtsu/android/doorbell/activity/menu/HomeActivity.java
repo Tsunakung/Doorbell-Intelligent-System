@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -129,7 +130,7 @@ public class HomeActivity extends Activity {
                     connected = false;
                     ping = new SocketPing();
                     try {
-                        connected = ping.execute(Config.getConfig().getString(Constant.CONNECT_IP)).get();
+                        connected = ping.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Config.getConfig().getString(Constant.CONNECT_IP)).get();
 
                         runOnUiThread(new Runnable() {
                             @Override

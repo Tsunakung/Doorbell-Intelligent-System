@@ -3,7 +3,10 @@ package com.lewtsu.android.doorbell.aynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,10 +20,19 @@ public class SocketManageWifiModify extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... params) {
-        String ip = params[0];
-        String ssid = params[1];
-        String password = params[2];
-        String encrypt = params[3];
+        String ip = null;
+        try {
+            ip = Config.getConfig().getString(Constant.CONNECT_IP);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(ip == null)
+            return null;
+
+
+        String ssid = params[0];
+        String password = params[1];
+        String encrypt = params[2];
         encrypt = encrypt.toUpperCase();
         encrypt = encrypt.equalsIgnoreCase("WPA2") ? "WPA" : encrypt;
         try {

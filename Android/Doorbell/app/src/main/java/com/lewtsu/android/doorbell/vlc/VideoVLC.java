@@ -114,7 +114,7 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
             libvlc.playIndex(0);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(activity, "Error creating player!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(activity, "Error creating player!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -131,6 +131,10 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
 
         mVideoWidth = 0;
         mVideoHeight = 0;
+    }
+
+    public boolean isStart() {
+        return libvlc != null ? libvlc.isPlaying() : false;
     }
 
 }

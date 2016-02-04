@@ -1,11 +1,13 @@
 package com.lewtsu.android.doorbell.adapter.data.Map;
 
-public abstract class Map1 {
+import android.graphics.Bitmap;
 
-    public int icon;
+public abstract class Map3 {
+
+    public Bitmap icon;
     public String str;
 
-    public Map1(int image, String text) {
+    public Map3(Bitmap image, String text) {
         icon = image;
         str = text;
     }

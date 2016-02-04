@@ -9,8 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.adapter.IHandleItem;
 import com.lewtsu.android.doorbell.adapter.AdapterList1;
+import com.lewtsu.android.doorbell.adapter.IHandleItem;
 import com.lewtsu.android.doorbell.adapter.data.ChangePasswordDevice;
 import com.lewtsu.android.doorbell.adapter.data.ChangePin;
 import com.lewtsu.android.doorbell.adapter.data.DeleteDevice;

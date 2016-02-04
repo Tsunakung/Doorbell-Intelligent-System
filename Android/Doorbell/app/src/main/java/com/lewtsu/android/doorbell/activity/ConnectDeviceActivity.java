@@ -63,7 +63,7 @@ public class ConnectDeviceActivity extends Activity {
     }
 
     private void scanDevice() {
-        if(threadScan != null && threadScan.getState() != Thread.State.TERMINATED)
+        if (threadScan != null && threadScan.getState() != Thread.State.TERMINATED)
             return;
         threadScan = new Thread(new Runnable() {
             @Override

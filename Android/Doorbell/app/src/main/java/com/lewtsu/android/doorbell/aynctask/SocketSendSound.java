@@ -48,19 +48,19 @@ public class SocketSendSound extends AsyncTask<String, Void, Void> {
                     SocketSendSound.activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            SocketSendSound.imageButton.setEnabled(false);
+                            if (SocketSendSound.imageButton != null)
+                                SocketSendSound.imageButton.setEnabled(false);
                         }
                     });
                     SocketSendSound.socketSendSound = new SocketSendSound();
-                    SocketSendSound.socketSendSound.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Config.getConfig().getString(Constant.CONNECT_IP));
+                    SocketSendSound.socketSendSound.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     SocketSendSound.activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            SocketSendSound.imageButton.setEnabled(true);
+                            if (SocketSendSound.imageButton != null)
+                                SocketSendSound.imageButton.setEnabled(true);
                         }
                     });
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -77,7 +77,15 @@ public class SocketSendSound extends AsyncTask<String, Void, Void> {
 
     @Override
     protected Void doInBackground(String... params) {
-        String ip = params[0];
+        String ip = null;
+        try {
+            ip = Config.getConfig().getString(Constant.CONNECT_IP);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (ip == null)
+            return null;
+
         isStartSendSound = true;
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, Constant.STREAMVOICE_PORT);
@@ -102,12 +110,15 @@ public class SocketSendSound extends AsyncTask<String, Void, Void> {
             out.close();
             socket.close();
 
+            /*
             SocketSendSound.activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    SocketSendSound.imageButton.setImageResource(R.drawable.btn_voice_hold);
+                    if (SocketSendSound.imageButton != null)
+                        SocketSendSound.imageButton.setImageResource(R.drawable.calling_microphoneun_unmute);
                 }
             });
+            */
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SocketTimeoutException e) {

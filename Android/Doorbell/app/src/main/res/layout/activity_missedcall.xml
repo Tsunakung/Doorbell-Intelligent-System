@@ -5,4 +5,25 @@
     android:background="@drawable/misscalled_background"
     tools:context="com.lewtsu.android.doorbell.activity.menu.MissedCallActivity">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <ListView
+            android:id="@+id/list_missedcall_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/txt_missedcall_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Loading"
+            android:textColor="#FFFFFFFF"
+            android:textSize="24dp" />
+    </FrameLayout>
 </RelativeLayout>

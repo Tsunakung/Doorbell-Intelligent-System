@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
+import com.lewtsu.android.doorbell.service.CallingService;
 
 import org.json.JSONException;
 
@@ -89,6 +90,8 @@ public class LoginActivity extends Activity {
                 imm.showSoftInput(editPad, InputMethodManager.SHOW_FORCED);
             }
         });
+
+        startService(new Intent(this, CallingService.class));
     }
 
     @Override

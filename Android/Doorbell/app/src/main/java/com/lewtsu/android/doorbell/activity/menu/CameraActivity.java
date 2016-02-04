@@ -20,7 +20,6 @@ import org.json.JSONException;
 public class CameraActivity extends Activity {
 
     private VideoVLC videoVLC;
-
     private ImageView screenshot, unlock, sound, voice;
 
     @Override

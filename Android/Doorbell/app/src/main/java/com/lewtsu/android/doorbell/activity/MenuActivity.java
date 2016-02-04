@@ -10,12 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.activity.menu.HomeActivity;
 import com.lewtsu.android.doorbell.activity.menu.OptionsActivity;
 import com.lewtsu.android.doorbell.activity.menu.ViewLogActivity;
-import com.lewtsu.android.doorbell.service.CallingService;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class MenuActivity extends TabActivity {
 
@@ -58,16 +60,18 @@ public class MenuActivity extends TabActivity {
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
+                invalidateOptionsMenu();
+
                 ImageView imageView = null;
                 int image = 0;
 
-                if (tabId == "Home") {
+                if (tabId.equalsIgnoreCase("Home")) {
                     imageView = ((ImageView) view1.findViewById(R.id.imageView));
                     image = R.drawable.btn_home_hold;
-                } else if (tabId == "ViewLog") {
+                } else if (tabId.equalsIgnoreCase("ViewLog")) {
                     imageView = ((ImageView) view2.findViewById(R.id.imageView));
                     image = R.drawable.btn_time_hold;
-                } else if (tabId == "Setting") {
+                } else if (tabId.equalsIgnoreCase("Setting")) {
                     imageView = ((ImageView) view3.findViewById(R.id.imageView));
                     image = R.drawable.btn_setting_hold;
                 }
@@ -79,14 +83,6 @@ public class MenuActivity extends TabActivity {
                 if (imageView != null) {
                     imageView.setImageResource(image);
                 }
-            }
-        });
-
-
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                invalidateOptionsMenu();
             }
         });
 

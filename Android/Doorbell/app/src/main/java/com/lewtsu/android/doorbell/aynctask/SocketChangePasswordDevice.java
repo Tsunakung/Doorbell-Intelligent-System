@@ -3,7 +3,10 @@ package com.lewtsu.android.doorbell.aynctask;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,10 +20,19 @@ public class SocketChangePasswordDevice extends AsyncTask<String, Void, String> 
 
     @Override
     protected String doInBackground(String... params) {
-        String ip = params[0];
-        String password = params[1];
-        String newPassword = params[2];
         String response = null;
+        String ip = null;
+        try {
+            ip = Config.getConfig().getString(Constant.CONNECT_IP);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(ip == null)
+            return "Not found IP Address";
+
+
+        String password = params[0];
+        String newPassword = params[1];
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, Constant.PING_PORT);
 

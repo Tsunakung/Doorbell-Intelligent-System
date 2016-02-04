@@ -10,10 +10,6 @@ import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.aynctask.SocketChangePasswordDevice;
-import com.lewtsu.android.doorbell.config.Config;
-import com.lewtsu.android.doorbell.constant.Constant;
-
-import org.json.JSONException;
 
 import java.util.concurrent.ExecutionException;
 
@@ -21,18 +17,13 @@ public class ChangePasswordDeviceActivity extends AppCompatActivity {
 
     private EditText editPassword, editNewPassword, editCoonfirmPassword;
     private Button btn;
-    private String responseToast, ipConnect;
+    private String responseToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password_device);
 
-        try {
-            ipConnect = Config.getConfig().getString(Constant.CONNECT_IP);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         editPassword = (EditText) findViewById(R.id.edit_changepassworddevice_1);
         editNewPassword = (EditText) findViewById(R.id.edit_changepassworddevice_2);
@@ -54,7 +45,7 @@ public class ChangePasswordDeviceActivity extends AppCompatActivity {
                             responseToast = "New Password does not match";
                         } else {
                             try {
-                                responseToast = new SocketChangePasswordDevice().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipConnect, password, newPassword).get();
+                                responseToast = new SocketChangePasswordDevice().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, password, newPassword).get();
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             } catch (ExecutionException e) {

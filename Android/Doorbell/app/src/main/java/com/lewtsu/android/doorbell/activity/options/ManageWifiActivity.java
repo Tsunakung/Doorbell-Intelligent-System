@@ -14,10 +14,6 @@ import com.lewtsu.android.doorbell.adapter.AdapterList2;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map2;
 import com.lewtsu.android.doorbell.aynctask.SocketManageWifiScan;
-import com.lewtsu.android.doorbell.config.Config;
-import com.lewtsu.android.doorbell.constant.Constant;
-
-import org.json.JSONException;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -60,17 +56,15 @@ public class ManageWifiActivity extends Activity {
                 List<Map2> list = null;
                 socketManageWifi = new SocketManageWifiScan();
                 try {
-                    list = socketManageWifi.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Config.getConfig().getString(Constant.CONNECT_IP)).get();
+                    list = socketManageWifi.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
                 isComplete = true;
-                iconTexts = new Map2[list.size()];
-                for (int i = 0; i < list.size(); ++i)
+                iconTexts = new Map2[list != null ? list.size() : 0];
+                for (int i = 0; i < (list != null ? list.size() : 0); ++i)
                     iconTexts[i] = list.get(i);
                 runOnUiThread(new Runnable() {
                     @Override
@@ -102,7 +96,7 @@ public class ManageWifiActivity extends Activity {
                         }
                     });
                     try {
-                        Thread.sleep(1000L);
+                        Thread.sleep(250L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -131,7 +125,7 @@ public class ManageWifiActivity extends Activity {
                     if (!(mapIconText.encrypt.equalsIgnoreCase("Connected") ||
                             mapIconText.encrypt.equalsIgnoreCase("Not Connected") ) &&
                             mapIconText instanceof IHandleItem) {
-                        mapIconText.hanndle(parent, view, position, id);
+                        ((IHandleItem) mapIconText).hanndle(parent, view, position, id);
                     }
                 }
             }

@@ -10,19 +10,18 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 
 import com.lewtsu.android.doorbell.activity.CallingActivity;
-import com.lewtsu.android.doorbell.aynctask.SocketCalling;
-import com.lewtsu.android.doorbell.config.Config;
-import com.lewtsu.android.doorbell.constant.Constant;
+import com.lewtsu.android.doorbell.aynctask.HTTPGetCalling;
 
-import org.json.JSONException;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class CallingService extends Service {
 
-    boolean isCalling;
+    public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private static String time;
+    public static long timeout = 60000;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -34,35 +33,43 @@ public class CallingService extends Service {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true) {
+                while (true) {
                     try {
-                        isCalling = new SocketCalling().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Config.getConfig().getString(Constant.CONNECT_IP)).get();
+                        time = new HTTPGetCalling().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                    isCalling = true;
-                    if (isCalling) {
-                        notification();
 
-                        Intent intent = new Intent(CallingService.this, CallingActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                    if (time != null) {
+                        long t = 0;
+                        try {
+                            Date date = df.parse(time);
+                            t = System.currentTimeMillis() - date.getTime();
+                        } catch (ParseException e) {
 
-                        try {
-                            Thread.sleep(60000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
                         }
-                    } else {
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+
+                        if (t > 0 && !CallingActivity.isRunning) {
+
+                            Intent intent = new Intent(CallingService.this, CallingActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                            try {
+                                Thread.sleep(timeout);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
+
+                    }
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }
