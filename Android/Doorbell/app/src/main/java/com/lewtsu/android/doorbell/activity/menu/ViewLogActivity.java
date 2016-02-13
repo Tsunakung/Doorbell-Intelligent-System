@@ -1,8 +1,11 @@
 package com.lewtsu.android.doorbell.activity.menu;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,9 +15,7 @@ import android.widget.TextView;
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.adapter.AdapterList4;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
-import com.lewtsu.android.doorbell.adapter.data.Map.Map3;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map4;
-import com.lewtsu.android.doorbell.aynctask.HTTPGetMissedCall;
 import com.lewtsu.android.doorbell.aynctask.HTTPGetViewLog;
 
 import java.util.List;
@@ -82,8 +83,8 @@ public class ViewLogActivity extends Activity {
     }
 
     private void manageViewLogComplete() {
-        if (iconTexts.length <= 1) {
-            textView.setText("Not Found Missed Call");
+        if (iconTexts.length < 1) {
+            textView.setText("Not Found View Log");
         } else {
             textView.setVisibility(View.INVISIBLE);
             listView.setVisibility(View.VISIBLE);
@@ -132,6 +133,37 @@ public class ViewLogActivity extends Activity {
                 }
             }
         }).start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        final AlertDialog alert = new AlertDialog.Builder(
+                new ContextThemeWrapper(this, android.R.style.Theme_Dialog))
+                .create();
+        alert.setMessage("Do you want to exit ?");
+        alert.setCancelable(false);
+        alert.setCanceledOnTouchOutside(false);
+
+        alert.setButton(DialogInterface.BUTTON_POSITIVE, "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        alert.dismiss();
+                        finish();
+                    }
+                });
+
+        alert.setButton(DialogInterface.BUTTON_NEGATIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        alert.dismiss();
+                    }
+                });
+
+        alert.show();
+    }
+
+    public Map4[] getMap() {
+        return iconTexts;
     }
 
 }

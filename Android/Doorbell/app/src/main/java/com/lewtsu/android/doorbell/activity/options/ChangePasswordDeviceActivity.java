@@ -1,19 +1,26 @@
 package com.lewtsu.android.doorbell.activity.options;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.lewtsu.android.doorbell.MainActivity;
 import com.lewtsu.android.doorbell.R;
+import com.lewtsu.android.doorbell.activity.SecurityConnectDeviceActivity;
 import com.lewtsu.android.doorbell.aynctask.SocketChangePasswordDevice;
+import com.lewtsu.android.doorbell.config.Config;
+import com.lewtsu.android.doorbell.constant.Constant;
+
+import org.json.JSONException;
 
 import java.util.concurrent.ExecutionException;
 
-public class ChangePasswordDeviceActivity extends AppCompatActivity {
+public class ChangePasswordDeviceActivity extends Activity {
 
     private EditText editPassword, editNewPassword, editCoonfirmPassword;
     private Button btn;
@@ -85,7 +92,17 @@ public class ChangePasswordDeviceActivity extends AppCompatActivity {
         if (responseToast != null) {
             if (responseToast.equalsIgnoreCase("true")) {
                 Toast.makeText(ChangePasswordDeviceActivity.this, "Change password device complete", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(ChangePasswordDeviceActivity.this, SecurityConnectDeviceActivity.class);
+                try {
+                    intent.putExtra(Constant.CONNECT_IP, Config.getConfig().getString(Constant.CONNECT_IP));
+                    Config.getConfig().remove(Constant.CONNECT_IP);
+                    Config.writeConfig();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finishAffinity();
             } else {
                 Toast.makeText(ChangePasswordDeviceActivity.this, responseToast, Toast.LENGTH_SHORT).show();
             }

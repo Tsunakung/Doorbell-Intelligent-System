@@ -57,6 +57,8 @@ public class HTTPGetViewLog extends AsyncTask<Void, Void, List<Map4>> {
             e.printStackTrace();
         }
 
+        System.out.println(str.toString());
+
         try {
             String time, status, user;
             JSONObject jObj;
@@ -69,8 +71,8 @@ public class HTTPGetViewLog extends AsyncTask<Void, Void, List<Map4>> {
 
                 if(status != null && status.indexOf("@") >= 0) {
                     status = status.substring(status.indexOf("@") + 1);
-                    if(status.equalsIgnoreCase("accept")) {
-                        status = "Accept By " + user;
+                    if(status.equalsIgnoreCase("Accepted")) {
+                        status = "Accepted by " + user;
                     }
                 }
 

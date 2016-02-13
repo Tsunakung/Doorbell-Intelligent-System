@@ -49,17 +49,17 @@ public class AdapterList2 extends ArrayAdapter<Map2> {
         holder.text2.setText(map2.encrypt);
 
         if(map2.feq >= 0) {
-            if (map2.feq <= 17) {
+            if (map2.feq <= 25) {
                 if (map2.encrypt.length() > 0)
                     holder.img1.setImageResource(R.drawable.wifi1_lock);
                 else
                     holder.img1.setImageResource(R.drawable.wifi1);
-            } else if (map2.feq <= 34) {
+            } else if (map2.feq <= 50) {
                 if (map2.encrypt.length() > 0)
                     holder.img1.setImageResource(R.drawable.wifi2_lock);
                 else
                     holder.img1.setImageResource(R.drawable.wifi2);
-            } else if (map2.feq <= 51) {
+            } else if (map2.feq <= 75) {
                 if (map2.encrypt.length() > 0)
                     holder.img1.setImageResource(R.drawable.wifi3_lock);
                 else

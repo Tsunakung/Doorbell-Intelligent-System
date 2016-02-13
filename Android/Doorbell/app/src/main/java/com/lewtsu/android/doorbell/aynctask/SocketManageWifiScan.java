@@ -18,6 +18,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
@@ -71,6 +72,8 @@ public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
             out.close();
             in.close();
             socket.close();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SocketTimeoutException e) {

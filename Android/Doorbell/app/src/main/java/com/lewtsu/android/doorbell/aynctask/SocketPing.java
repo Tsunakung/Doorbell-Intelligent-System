@@ -11,6 +11,7 @@ import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class SocketPing extends AsyncTask<String, Void, Boolean> {
@@ -23,7 +24,7 @@ public class SocketPing extends AsyncTask<String, Void, Boolean> {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, Constant.PING_PORT);
 
             Socket socket = new Socket();
-            socket.connect(inetSocketAddress, 100);
+            socket.connect(inetSocketAddress, 1000);
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             Scanner in = new Scanner(socket.getInputStream());
 
@@ -37,6 +38,8 @@ public class SocketPing extends AsyncTask<String, Void, Boolean> {
             out.close();
             in.close();
             socket.close();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SocketTimeoutException e) {

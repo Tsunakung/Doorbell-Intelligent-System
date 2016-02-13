@@ -6,12 +6,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.activity.ConnectDeviceActivity;
+import com.lewtsu.android.doorbell.aynctask.HTTPUnlock;
 import com.lewtsu.android.doorbell.aynctask.SocketPing;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
@@ -46,7 +49,7 @@ public class HomeActivity extends Activity {
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                     builder.setMessage("Do you want to\r\ndisconnect from device ?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Config.getConfig().remove(Constant.CONNECT_IP);
@@ -56,7 +59,7 @@ public class HomeActivity extends Activity {
                                     finish();
                                 }
                             })
-                            .setNegativeButton("No", null).show();
+                            .setPositiveButton("No", null).show();
                 }
             }
         });
@@ -96,19 +99,40 @@ public class HomeActivity extends Activity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 builder.setMessage("Are you sure ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                new HTTPUnlock().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                Toast.makeText(HomeActivity.this, "Door Open", Toast.LENGTH_SHORT).show();
+                                btnUnlock.setEnabled(false);
+                                btnUnlock.setImageResource(R.drawable.btn_unlock_hold);
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Thread.sleep(10000);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                btnUnlock.setEnabled(true);
+                                            }
+                                        });
+                                    }
+                                }).start();
                             }
                         })
-                        .setNegativeButton("No", null).show();
+                        .setPositiveButton("No", null).show();
             }
         });
 
         btnUnlock.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if (!btnUnlock.isEnabled())
+                    return false;
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
                     btnUnlock.setImageResource(R.drawable.btn_unlock_hold);
                 else if (event.getAction() == MotionEvent.ACTION_UP)
@@ -120,13 +144,13 @@ public class HomeActivity extends Activity {
     }
 
     private void startThreadPing() {
-        if(threadPing != null && threadPing.getState() != Thread.State.TERMINATED)
+        if (threadPing != null && threadPing.getState() != Thread.State.TERMINATED)
             return;
         pingStart = true;
         threadPing = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(pingStart) {
+                while (pingStart) {
                     connected = false;
                     ping = new SocketPing();
                     try {
@@ -135,7 +159,7 @@ public class HomeActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(connected) {
+                                if (connected) {
                                     btnCamera.setImageResource(R.drawable.btn_camera_online);
                                     imageCamera = R.drawable.btn_camera_online;
                                     imageCameraHold = R.drawable.btn_camera_online_hold;
@@ -162,7 +186,7 @@ public class HomeActivity extends Activity {
     }
 
     private void stopThreadPing() {
-        if(threadPing == null || threadPing.getState() == Thread.State.TERMINATED)
+        if (threadPing == null || threadPing.getState() == Thread.State.TERMINATED)
             return;
         pingStart = false;
     }
@@ -184,5 +208,33 @@ public class HomeActivity extends Activity {
         super.onDestroy();
         stopThreadPing();
     }
+
+    @Override
+    public void onBackPressed() {
+        final AlertDialog alert = new AlertDialog.Builder(
+                new ContextThemeWrapper(this, android.R.style.Theme_Dialog))
+                .create();
+        alert.setMessage("Do you want to exit ?");
+        alert.setCancelable(false);
+        alert.setCanceledOnTouchOutside(false);
+
+        alert.setButton(DialogInterface.BUTTON_POSITIVE, "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        alert.dismiss();
+                        finish();
+                    }
+                });
+
+        alert.setButton(DialogInterface.BUTTON_NEGATIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        alert.dismiss();
+                    }
+                });
+
+        alert.show();
+    }
+
 
 }

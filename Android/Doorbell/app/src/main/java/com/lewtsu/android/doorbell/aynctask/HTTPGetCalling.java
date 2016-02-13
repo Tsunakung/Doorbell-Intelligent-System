@@ -29,6 +29,8 @@ public class HTTPGetCalling extends AsyncTask<Void, Void, String> {
         String time = null;
         String ip = null;
         try {
+            if(Config.getConfig() == null)
+                Config.loadConfig();
             ip = Config.getConfig().getString(Constant.CONNECT_IP);
         } catch (JSONException e) {
             e.printStackTrace();

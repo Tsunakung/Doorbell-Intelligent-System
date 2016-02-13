@@ -36,7 +36,7 @@ public class HTTPUnlock extends AsyncTask<Void, Void, Void> {
             return null;
 
         try {
-            URL url = new URL("http://" + ip + "/piphp.php?type=Unlock");
+            URL url = new URL("http://" + ip + "/PhpConRelay.php?ctl=1");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");

@@ -57,28 +57,34 @@ public class AdapterList4 extends ArrayAdapter<Map4> {
         final View tempView = convertView;
         final Map4 iconText = mapIconTexts[position];
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    iconText.icon = new HTTPDownloadBitmap().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://" + Config.getConfig().getString(Constant.CONNECT_IP) + "/img/" + iconText.str1 + "/5.jpg").get();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
-                ((Activity) tempView.getContext()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        holder.img1.setImageBitmap(iconText.icon);
+        if(!iconText.isDownload) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        iconText.isDownload = true;
+                        iconText.icon = new HTTPDownloadBitmap().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://" + Config.getConfig().getString(Constant.CONNECT_IP) + "/img/" + iconText.str1 + "/2.jpg").get();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
                     }
-                });
-            }
-        }).start();
+
+                    ((Activity) tempView.getContext()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.img1.setImageBitmap(iconText.icon);
+                        }
+                    });
+                }
+            }).start();
+        } else {
+            holder.img1.setImageBitmap(iconText.icon);
+        }
         holder.text1.setText(iconText.str1);
+        holder.text2.setText(iconText.str2);
 
         return convertView;
     }

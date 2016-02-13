@@ -14,6 +14,7 @@ import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class SocketManageWifiModify extends AsyncTask<String, Void, Void> {
@@ -45,19 +46,21 @@ public class SocketManageWifiModify extends AsyncTask<String, Void, Void> {
 
             out.println("ManageWifiModify");
             out.flush();
-            Thread.sleep(100);
+            Thread.sleep(500);
             out.println(ssid);
             out.flush();
-            Thread.sleep(100);
+            Thread.sleep(500);
             out.println(password);
             out.flush();
-            Thread.sleep(100);
+            Thread.sleep(500);
             out.println(encrypt);
             out.flush();
 
             out.close();
             in.close();
             socket.close();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SocketTimeoutException e) {

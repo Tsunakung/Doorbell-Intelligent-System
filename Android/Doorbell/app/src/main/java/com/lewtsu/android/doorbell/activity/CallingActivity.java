@@ -13,18 +13,20 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.aynctask.HTTPSetAccept;
-import com.lewtsu.android.doorbell.aynctask.HTTPSetDeny;
-import com.lewtsu.android.doorbell.aynctask.HTTPSetFinishAccept;
+import com.lewtsu.android.doorbell.aynctask.HTTPGetCalling;
+import com.lewtsu.android.doorbell.aynctask.HTTPSetAccepted;
+import com.lewtsu.android.doorbell.aynctask.HTTPSetDenied;
+import com.lewtsu.android.doorbell.aynctask.HTTPSetFinishAccepted;
 import com.lewtsu.android.doorbell.aynctask.HTTPUnlock;
 import com.lewtsu.android.doorbell.aynctask.SocketGetSound;
 import com.lewtsu.android.doorbell.aynctask.SocketSendSound;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
-import com.lewtsu.android.doorbell.service.CallingService;
 import com.lewtsu.android.doorbell.vlc.VideoVLC;
 
 import org.json.JSONException;
+
+import java.util.concurrent.ExecutionException;
 
 public class CallingActivity extends Activity {
 
@@ -76,7 +78,7 @@ public class CallingActivity extends Activity {
                 voiceCall.setVisibility(View.VISIBLE);
                 denyCall.setVisibility(View.VISIBLE);
 
-                new HTTPSetAccept().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE);
+                new HTTPSetAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE);
                 SocketGetSound.start(CallingActivity.this, null);
             }
         });
@@ -84,7 +86,7 @@ public class CallingActivity extends Activity {
         denyUncall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HTTPSetDeny().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE);
+                new HTTPSetDenied().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE);
                 finishAffinity();
             }
         });
@@ -97,7 +99,14 @@ public class CallingActivity extends Activity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                new HTTPSetFinishAccept().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE);
+                                try {
+                                    new HTTPSetAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE).get();
+                                    new HTTPSetFinishAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                }
                                 new HTTPUnlock().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                                 finishAffinity();
                             }
@@ -115,7 +124,16 @@ public class CallingActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 SocketGetSound.stop();
-                                new HTTPSetFinishAccept().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE);
+                                SocketSendSound.stop();
+                                videoVLC.releasePlayer();
+                                try {
+                                    new HTTPSetAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE).get();
+                                    new HTTPSetFinishAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                }
                                 new HTTPUnlock().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                                 finishAffinity();
                             }
@@ -141,7 +159,7 @@ public class CallingActivity extends Activity {
             @Override
             public void onClick(View v) {
                 SocketGetSound.stop();
-                new HTTPSetFinishAccept().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE);
+                new HTTPSetFinishAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 finishAffinity();
             }
         });
@@ -150,29 +168,20 @@ public class CallingActivity extends Activity {
         soundStart();
         videoStart();
 
+
     }
 
     private void videoStart() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!videoVLC.isStart())
-                                try {
-                                    videoVLC.createPlayer("http://" + Config.getConfig().getString(Constant.CONNECT_IP) + ":" + Constant.STREAMVIDEO_PORT + "/");
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                        }
-                    });
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Thread.sleep(10000);
+                    videoVLC.createPlayer("http://" + Config.getConfig().getString(Constant.CONNECT_IP) + ":" + Constant.STREAMVIDEO_PORT + "/");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
@@ -202,18 +211,27 @@ public class CallingActivity extends Activity {
         threadCallingTimeout = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(CallingService.timeout);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                while (true) {
+                    try {
+                        Thread.sleep(2000);
+                        String time = new HTTPGetCalling().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
+                        if (time == null || time.length() < 5) {
+                            break;
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        break;
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                        break;
+                    }
                 }
                 if (!isAccept) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            finishAffinity();
-                        }
-                    });
+                    try {
+                        finishAffinity();
+                    } catch (NullPointerException e) {
+
+                    }
                 }
             }
         });
@@ -227,15 +245,11 @@ public class CallingActivity extends Activity {
         videoVLC.setSize();
     }
 
-    /*
+   /*
     @Override
     protected void onResume() {
         super.onResume();
-        try {
-            videoVLC.createPlayer("http://" + Config.getConfig().getString(Constant.CONNECT_IP) + ":" + Constant.STREAMVIDEO_PORT + "/");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        videoStart();
     }
 
     @Override
@@ -251,7 +265,21 @@ public class CallingActivity extends Activity {
         videoVLC.releasePlayer();
         mp.stop();
         SocketGetSound.stop();
+        SocketSendSound.stop();
         isRunning = false;
+
+        if (isAccept) {
+            try {
+                new HTTPSetAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Build.DEVICE).get();
+                new HTTPSetFinishAccepted().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        } else {
+            new HTTPSetDenied().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
 }

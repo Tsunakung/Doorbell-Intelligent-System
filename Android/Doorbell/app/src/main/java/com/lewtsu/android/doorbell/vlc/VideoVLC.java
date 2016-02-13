@@ -83,6 +83,9 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
         else
             w = (int) (h * videoAR);
 
+        if(holder == null)
+            return;
+
         holder.setFixedSize(mVideoWidth, mVideoHeight);
 
         ViewGroup.LayoutParams lp = mSurface.getLayoutParams();
@@ -133,8 +136,5 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
         mVideoHeight = 0;
     }
 
-    public boolean isStart() {
-        return libvlc != null ? libvlc.isPlaying() : false;
-    }
 
 }

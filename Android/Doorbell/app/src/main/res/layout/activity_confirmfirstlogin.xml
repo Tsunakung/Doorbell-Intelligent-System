@@ -23,7 +23,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="37dp"
         android:layout_marginTop="150dp">
 
         <ImageView
@@ -33,6 +32,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="top"
             android:layout_marginBottom="100dp"
+            android:layout_marginLeft="37dp"
             android:src="@drawable/line" />
 
         <EditText
@@ -48,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -93,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
+            android:layout_marginLeft="37dp"
             android:layout_marginTop="100dp"
             android:src="@drawable/line" />
     </FrameLayout>

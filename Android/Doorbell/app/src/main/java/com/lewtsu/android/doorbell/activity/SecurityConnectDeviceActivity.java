@@ -29,6 +29,7 @@ public class SecurityConnectDeviceActivity extends Activity {
     private Button btnConnect;
     private String responseToast;
     private Intent intent;
+    private boolean isExtraIp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class SecurityConnectDeviceActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            isExtraIp = true;
             ipConnect = extras.getString(Constant.CONNECT_IP);
         }
 
@@ -153,7 +155,8 @@ public class SecurityConnectDeviceActivity extends Activity {
 
     private void onButtonComplete() {
         btnConnect.setEnabled(true);
-        editTextIP.setEnabled(true);
+        if(!isExtraIp)
+            editTextIP.setEnabled(true);
         editTextPassword.setEnabled(true);
         btnConnect.setText("Connect");
         if (responseToast != null) {

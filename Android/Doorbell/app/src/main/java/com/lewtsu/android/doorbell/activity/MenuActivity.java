@@ -10,14 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.activity.menu.HomeActivity;
 import com.lewtsu.android.doorbell.activity.menu.OptionsActivity;
 import com.lewtsu.android.doorbell.activity.menu.ViewLogActivity;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class MenuActivity extends TabActivity {
 
@@ -33,7 +30,7 @@ public class MenuActivity extends TabActivity {
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
 
         tab1 = tabHost.newTabSpec("Home");
-        tab2 = tabHost.newTabSpec("ViewLog");
+        tab2 = tabHost.newTabSpec("View log");
         tab3 = tabHost.newTabSpec("Setting");
 
         view1 = LayoutInflater.from(this).inflate(R.layout.tabicon, getTabWidget(), false);
@@ -57,6 +54,8 @@ public class MenuActivity extends TabActivity {
         tabHost.addTab(tab2);
         tabHost.addTab(tab3);
 
+        getActionBar().setTitle("Home");
+
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
@@ -68,7 +67,7 @@ public class MenuActivity extends TabActivity {
                 if (tabId.equalsIgnoreCase("Home")) {
                     imageView = ((ImageView) view1.findViewById(R.id.imageView));
                     image = R.drawable.btn_home_hold;
-                } else if (tabId.equalsIgnoreCase("ViewLog")) {
+                } else if (tabId.equalsIgnoreCase("View log")) {
                     imageView = ((ImageView) view2.findViewById(R.id.imageView));
                     image = R.drawable.btn_time_hold;
                 } else if (tabId.equalsIgnoreCase("Setting")) {
@@ -82,11 +81,10 @@ public class MenuActivity extends TabActivity {
 
                 if (imageView != null) {
                     imageView.setImageResource(image);
+                    getActionBar().setTitle(tabId);
                 }
             }
         });
-
-        //startService(new Intent(this, CallingService.class));
     }
 
     @Override
@@ -105,5 +103,6 @@ public class MenuActivity extends TabActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

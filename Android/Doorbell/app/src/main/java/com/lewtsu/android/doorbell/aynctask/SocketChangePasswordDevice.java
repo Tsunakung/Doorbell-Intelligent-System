@@ -14,6 +14,7 @@ import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class SocketChangePasswordDevice extends AsyncTask<String, Void, String> {
@@ -43,10 +44,10 @@ public class SocketChangePasswordDevice extends AsyncTask<String, Void, String> 
 
             out.println("ChangePasswordDevice");
             out.flush();
-            Thread.sleep(100);
+            Thread.sleep(500);
             out.println(password);
             out.flush();
-            Thread.sleep(100);
+            Thread.sleep(500);
             out.println(newPassword);
             out.flush();
 
@@ -57,6 +58,8 @@ public class SocketChangePasswordDevice extends AsyncTask<String, Void, String> 
             out.close();
             in.close();
             socket.close();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (SocketTimeoutException e) {

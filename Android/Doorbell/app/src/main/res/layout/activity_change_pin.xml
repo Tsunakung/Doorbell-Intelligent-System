@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/setting_background"
     tools:context="com.lewtsu.android.doorbell.activity.options.ChangePinActivity">
 
     <LinearLayout
@@ -18,6 +19,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="PIN"
+            android:textColor="#FFFFFFFF"
             android:textSize="24dp" />
 
         <EditText
@@ -25,12 +27,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:width="350dp"
+            android:width="300dp"
+            android:background="#FFFFFF"
             android:ems="10"
             android:gravity="center"
             android:inputType="numberPassword"
             android:maxLength="4"
-            android:textSize="20dp" />
+            android:textSize="32dp" />
 
         <TextView
             android:id="@+id/txt_changepin_2"
@@ -39,19 +42,21 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="New PIN"
+            android:textColor="#FFFFFFFF"
             android:textSize="24dp" />
 
         <EditText
             android:id="@+id/edit_changepin_2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:width="350dp"
+            android:width="300dp"
+            android:background="#FFFFFF"
             android:ems="10"
             android:gravity="center"
             android:inputType="numberPassword"
             android:maxLength="4"
-            android:textSize="20dp" />
+            android:textSize="32dp" />
 
         <TextView
             android:id="@+id/txt_changepin_3"
@@ -60,19 +65,21 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
             android:text="Confirm New PIN"
+            android:textColor="#FFFFFFFF"
             android:textSize="24dp" />
 
         <EditText
             android:id="@+id/edit_changepin_3"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:width="350dp"
+            android:width="300dp"
+            android:background="#FFFFFF"
             android:ems="10"
             android:gravity="center"
             android:inputType="numberPassword"
             android:maxLength="4"
-            android:textSize="20dp" />
+            android:textSize="32dp" />
 
         <Button
             android:id="@+id/btn_changepin_1"
@@ -83,6 +90,7 @@
             android:width="300dp"
             android:height="75dp"
             android:text="Change PIN"
+            android:textColor="#FFFFFFFF"
             android:textSize="24dp" />
     </LinearLayout>
 </RelativeLayout>

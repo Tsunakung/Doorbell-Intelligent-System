@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean> {
@@ -40,6 +41,8 @@ public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean
             out.close();
             in.close();
             socket.close();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (IOException e) {

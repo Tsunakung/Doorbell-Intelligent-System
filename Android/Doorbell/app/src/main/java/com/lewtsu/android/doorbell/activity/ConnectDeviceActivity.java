@@ -85,9 +85,6 @@ public class ConnectDeviceActivity extends Activity {
                 Log.d(Constant.TAG, ip + " = " + wm.getConnectionInfo() + "");
 
                 String[] ipSplit = ip.split("\\.");
-                //ipSplit[0] = "192";
-                //ipSplit[1] = "168";
-                //ipSplit[2] = "200";
                 String ipAddress;
                 boolean isCamera = false;
                 for (int i = 0; i < 256; ++i) {

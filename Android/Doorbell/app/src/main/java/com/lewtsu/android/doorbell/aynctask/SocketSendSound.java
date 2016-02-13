@@ -95,10 +95,18 @@ public class SocketSendSound extends AsyncTask<String, Void, Void> {
             socket.setSoTimeout(3000);
             OutputStream out = socket.getOutputStream();
 
-            AudioRecord recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, 44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, 4096);
+            int minBuffer = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+            AudioRecord recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, 44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, minBuffer);
 
             int data;
+            //byte[] buffer = new byte[128];
+            //byte[] buffer = new byte[256];
+            //byte[] buffer = new byte[512];
+            //byte[] buffer = new byte[1024];
+            //byte[] buffer = new byte[2048];
+            //byte[] buffer = new byte[4096];
             byte[] buffer = new byte[4096];
+            //byte[] buffer = new byte[minBuffer];
 
             recorder.startRecording();
             while (isStartSendSound && (data = recorder.read(buffer, 0, buffer.length)) > 0) {

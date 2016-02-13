@@ -1,13 +1,16 @@
 package com.lewtsu.android.doorbell.activity.options;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.lewtsu.android.doorbell.MainActivity;
 import com.lewtsu.android.doorbell.R;
+import com.lewtsu.android.doorbell.adapter.data.ChangePin;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
 
@@ -62,7 +65,10 @@ public class ChangePinActivity extends Activity {
                 if (responseToast != null) {
                     if (responseToast.equalsIgnoreCase("true")) {
                         Toast.makeText(ChangePinActivity.this, "Change PIN complete", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Intent intent = new Intent(ChangePinActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finishAffinity();
                     } else {
                         Toast.makeText(ChangePinActivity.this, responseToast, Toast.LENGTH_SHORT).show();
                     }

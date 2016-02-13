@@ -55,37 +55,33 @@ public class AdapterList3 extends ArrayAdapter<Map3> {
         final View tempView = convertView;
         final Map3 iconText = mapIconTexts[position];
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    iconText.icon = new HTTPDownloadBitmap().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://" + Config.getConfig().getString(Constant.CONNECT_IP) + "/img/" + iconText.str + "/5.jpg").get();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
-                ((Activity) tempView.getContext()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //holder.icon.getLayoutParams().width = 200;
-                        //holder.icon.getLayoutParams().height = 200;
-                        holder.icon.setImageBitmap(iconText.icon);
+        if(!iconText.isDownload) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        iconText.isDownload = true;
+                        iconText.icon = new HTTPDownloadBitmap().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "http://" + Config.getConfig().getString(Constant.CONNECT_IP) + "/img/" + iconText.str + "/2.jpg").get();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
                     }
-                });
-            }
-        }).start();
+
+                    ((Activity) tempView.getContext()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            holder.icon.setImageBitmap(iconText.icon);
+                        }
+                    });
+                }
+            }).start();
+        } else {
+            holder.icon.setImageBitmap(iconText.icon);
+        }
         holder.text.setText(iconText.str);
-        /*
-        Map3 iconText = mapIconTexts[position];
-        holder.icon.setImageBitmap(iconText.icon);
-        holder.text.setText(iconText.str);
-        holder.icon.getLayoutParams().width = 200;
-        holder.icon.getLayoutParams().height = 200;
-        */
 
         return convertView;
     }

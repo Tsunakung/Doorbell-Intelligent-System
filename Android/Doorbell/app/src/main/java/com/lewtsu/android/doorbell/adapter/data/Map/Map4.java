@@ -6,6 +6,7 @@ public abstract class Map4 {
 
     public Bitmap icon;
     public String str1, str2;
+    public boolean isDownload;
 
     public Map4(Bitmap image, String text1, String text2) {
         icon = image;

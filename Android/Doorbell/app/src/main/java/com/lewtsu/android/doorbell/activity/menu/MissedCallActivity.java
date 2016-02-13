@@ -1,6 +1,8 @@
 package com.lewtsu.android.doorbell.activity.menu;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,15 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.adapter.AdapterList1;
 import com.lewtsu.android.doorbell.adapter.AdapterList3;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
-import com.lewtsu.android.doorbell.adapter.data.Map.Map1;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map3;
-import com.lewtsu.android.doorbell.aynctask.HTTPGetMissedCall;
+import com.lewtsu.android.doorbell.aynctask.HTTPGetMissCall;
+import com.lewtsu.android.doorbell.aynctask.HTTPSetFinishMissedCall;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -30,7 +30,7 @@ public class MissedCallActivity extends Activity {
     private TextView textView;
     private AdapterList3 arrayAdapter;
     private Map3[] iconTexts;
-    private HTTPGetMissedCall getMissedCall;
+    private HTTPGetMissCall getMissedCall;
     private boolean isComplete;
 
     private Thread threadScanMissedCall;
@@ -61,7 +61,7 @@ public class MissedCallActivity extends Activity {
                 isComplete = false;
 
                 List<Map3> list = null;
-                getMissedCall = new HTTPGetMissedCall();
+                getMissedCall = new HTTPGetMissCall();
                 try {
                     list = getMissedCall.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
                 } catch (InterruptedException e) {
@@ -114,7 +114,7 @@ public class MissedCallActivity extends Activity {
     }
 
     private void manageMissedCallComplete() {
-        if (iconTexts.length <= 1) {
+        if (iconTexts.length < 1) {
             textView.setText("Not Found Missed Call");
         } else {
             textView.setVisibility(View.INVISIBLE);
@@ -148,8 +148,19 @@ public class MissedCallActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.remove_misscall) {
-            item.setIcon(R.drawable.btn_bin_hold);
-            Toast.makeText(this, "TEST", Toast.LENGTH_SHORT).show();
+            if(iconTexts != null || iconTexts.length != 0) {
+                //item.setIcon(R.drawable.btn_bin_hold);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MissedCallActivity.this);
+                builder.setMessage("You want to remove the misscall ?")
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new HTTPSetFinishMissedCall().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                startScanMissedCall();
+                            }
+                        })
+                        .setPositiveButton("No", null).show();
+            }
         }
         return super.onOptionsItemSelected(item);
     }

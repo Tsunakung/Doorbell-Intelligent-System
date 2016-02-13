@@ -33,11 +33,15 @@ public class ManageWifiListView extends Map2 implements IHandleItem {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setView(v);
         final TextView textView = (TextView) v.findViewById(R.id.textView);
+        TextView textView2 = (TextView) v.findViewById(R.id.textView2);
         final EditText editText = (EditText) v.findViewById(R.id.editText);
 
         textView.setText(ssid);
-        if (encrypt.length() == 0)
+        if (encrypt.length() == 0) {
+            textView2.setVisibility(View.INVISIBLE);
+            editText.setVisibility(View.INVISIBLE);
             editText.setEnabled(false);
+        }
 
         builder.setCancelable(true).setPositiveButton("Connect", new DialogInterface.OnClickListener() {
             @Override
