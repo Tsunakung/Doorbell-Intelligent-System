@@ -19,12 +19,15 @@ public class SocketPing extends AsyncTask<String, Void, Boolean> {
     @Override
     protected Boolean doInBackground(String... params) {
         String ip = params[0];
+        int timeout = 1000;
+        if(params.length > 1)
+            timeout = Integer.parseInt(params[1]);
         boolean isDoorbell = false;
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, Constant.PING_PORT);
 
             Socket socket = new Socket();
-            socket.connect(inetSocketAddress, 1000);
+            socket.connect(inetSocketAddress, timeout);
             PrintWriter out = new PrintWriter(socket.getOutputStream());
             Scanner in = new Scanner(socket.getInputStream());
 

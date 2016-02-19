@@ -93,6 +93,7 @@ public class SocketSendSound extends AsyncTask<String, Void, Void> {
             Socket socket = new Socket();
             socket.connect(inetSocketAddress, 3000);
             socket.setSoTimeout(3000);
+            socket.setOOBInline(true);
             OutputStream out = socket.getOutputStream();
 
             int minBuffer = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);

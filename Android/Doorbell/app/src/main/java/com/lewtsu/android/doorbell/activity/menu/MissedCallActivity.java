@@ -148,7 +148,7 @@ public class MissedCallActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.remove_misscall) {
-            if(iconTexts != null || iconTexts.length != 0) {
+            if(iconTexts != null && iconTexts.length != 0) {
                 //item.setIcon(R.drawable.btn_bin_hold);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MissedCallActivity.this);
                 builder.setMessage("You want to remove the misscall ?")

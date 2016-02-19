@@ -94,6 +94,7 @@ public class SocketGetSound extends AsyncTask<String, Void, Void> {
             Socket socket = new Socket();
             socket.connect(inetSocketAddress, 3000);
             socket.setSoTimeout(3000);
+            socket.setOOBInline(true);
             InputStream in = socket.getInputStream();
 
             AudioTrack track = new AudioTrack(AudioManager.STREAM_MUSIC, 44100, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, 512, AudioTrack.MODE_STREAM);

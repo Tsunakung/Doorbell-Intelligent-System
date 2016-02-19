@@ -118,6 +118,7 @@ public class HomeActivity extends Activity {
                                             @Override
                                             public void run() {
                                                 btnUnlock.setEnabled(true);
+                                                btnUnlock.setImageResource(R.drawable.btn_unlock);
                                             }
                                         });
                                     }

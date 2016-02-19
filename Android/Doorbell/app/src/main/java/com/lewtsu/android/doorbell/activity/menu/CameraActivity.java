@@ -43,6 +43,8 @@ public class CameraActivity extends Activity {
         sound = (ImageView) findViewById(R.id.imgbtn_camera_3);
         voice = (ImageView) findViewById(R.id.imgbtn_camera_4);
 
+
+
         //screenshot.setVisibility(View.INVISIBLE);
         unlock.setVisibility(View.INVISIBLE);
         sound.setVisibility(View.INVISIBLE);
@@ -52,6 +54,7 @@ public class CameraActivity extends Activity {
         unlock.getLayoutParams().width = 0;
         sound.getLayoutParams().width = 0;
         voice.getLayoutParams().width = 0;
+
 
         screenshot.setOnClickListener(new View.OnClickListener() {
             @Override
