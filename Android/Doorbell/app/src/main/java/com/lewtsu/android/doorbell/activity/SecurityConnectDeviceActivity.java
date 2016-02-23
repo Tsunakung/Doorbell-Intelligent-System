@@ -2,10 +2,10 @@ package com.lewtsu.android.doorbell.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +29,7 @@ public class SecurityConnectDeviceActivity extends Activity {
     private Button btnConnect;
     private String responseToast;
     private Intent intent;
+    private boolean isExtraIp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,12 @@ public class SecurityConnectDeviceActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            isExtraIp = true;
             ipConnect = extras.getString(Constant.CONNECT_IP);
         }
 
-        editTextIP = (EditText) findViewById(R.id.edit_securityconnectdevice_2);
-        editTextPassword = (EditText) findViewById(R.id.edit_securityconnectdevice_1);
+        editTextIP = (EditText) findViewById(R.id.edit_securityconnectdevice_1);
+        editTextPassword = (EditText) findViewById(R.id.edit_securityconnectdevice_2);
 
         btnConnect = (Button) findViewById(R.id.btn_securityconnectdevice_1);
 
@@ -93,13 +95,17 @@ public class SecurityConnectDeviceActivity extends Activity {
                         });
 
                         try {
-                            /*
+
+                            /*)
                             Config.getConfig().put(Constant.CONNECT_IP, "pitaknorasate.asuscomm.com");
                             Config.writeConfig();
                             intent = new Intent(SecurityConnectDeviceActivity.this, MenuActivity.class);
+                            startActivity(intent);
+                            finish();
                             */
-                            boolean isConnect = new SocketPing().execute(ipConnect).get();
-                            boolean isPassword = new SocketComparePasswordDevice().execute(ipConnect, password).get();
+
+                            boolean isConnect = new SocketPing().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipConnect).get();
+                            boolean isPassword = new SocketComparePasswordDevice().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipConnect, password).get();
                             if (ipConnect == null || ipConnect.length() == 0) {
                                 responseToast = "Please input IPAddress";
                             } else if (!isConnect) {
@@ -149,12 +155,13 @@ public class SecurityConnectDeviceActivity extends Activity {
 
     private void onButtonComplete() {
         btnConnect.setEnabled(true);
-        editTextIP.setEnabled(true);
+        if(!isExtraIp)
+            editTextIP.setEnabled(true);
         editTextPassword.setEnabled(true);
         btnConnect.setText("Connect");
-        if(responseToast != null) {
+        if (responseToast != null) {
             Toast.makeText(SecurityConnectDeviceActivity.this, responseToast, Toast.LENGTH_SHORT).show();
-        } else if(intent != null) {
+        } else if (intent != null) {
             startActivity(intent);
             finish();
         }

@@ -3,13 +3,21 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_connect_device">Connect Device</string>
+    <string name="title_activity_connect_device">Connect device</string>
     <string name="title_activity_confirm_first_login">Register</string>
     <string name="title_activity_first_login">Register</string>
-    <string name="title_activity_login">Locked</string>
-    <string name="title_activity_menu">Main Menu</string>
-    <string name="title_activity_security_connect_device">Security Login</string>
-    <string name="title_activity_tab1">Tab1Activity</string>
-    <string name="title_activity_tab2">Tab2Activity</string>
-    <string name="title_activity_tab3">Tab3Activity</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_menu">Main menu</string>
+    <string name="title_activity_security_connect_device">Security login</string>
+    <string name="title_activity_camera">Camera</string>
+    <string name="title_activity_missedcall">Missed Call</string>
+    <string name="title_activity_viewlog">View log</string>
+    <string name="title_activity_options">Setting</string>
+    <string name="title_activity_change_password_device">Change password device</string>
+    <string name="title_activity_change_password_door">Change password door</string>
+    <string name="title_activity_change_pin">Change PIN</string>
+    <string name="title_activity_delete_device">Disconnect</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_manage_wifi">Manage wifi</string>
+    <string name="title_activity_calling">Calling</string>
 </resources>

@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lewtsu.android.doorbell.activity.CallingActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <SurfaceView
+            android:id="@+id/surface_calling_1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:id="@+id/img_calling_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/calling_call" />
+
+        <ImageView
+            android:id="@+id/img_calling_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/calling_end" />
+
+        <ImageView
+            android:id="@+id/img_calling_3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/calling_unlock" />
+
+        <ImageView
+            android:id="@+id/img_calling_4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/calling_unlock" />
+
+        <ImageView
+            android:id="@+id/img_calling_5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/calling_microphoneun_unmute" />
+
+        <ImageView
+            android:id="@+id/img_calling_6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/calling_end" />
+
+    </FrameLayout>
+</RelativeLayout>

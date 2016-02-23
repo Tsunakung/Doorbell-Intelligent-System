@@ -34,7 +34,7 @@ public class ConfirmFirstLoginActivity extends Activity {
         setContentView(R.layout.activity_confirmfirstlogin);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             pinLock = extras.getString(Constant.PIN);
         }
 

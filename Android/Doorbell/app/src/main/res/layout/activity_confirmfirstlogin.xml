@@ -2,15 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relative_confirmregister_1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background">
 
+    <TextView
+        android:id="@+id/txt_confirmregister_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:text="Confirm your PIN"
+        android:textColor="#ffffff"
+        android:textSize="32dp" />
 
     <FrameLayout
         android:id="@+id/frame_confirmregister_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="150dp">
+
+        <ImageView
+            android:id="@+id/img_confirmregister_line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="top"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="37dp"
+            android:src="@drawable/line" />
 
         <EditText
             android:id="@+id/edit_confirmregister_keypad"
@@ -24,6 +47,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -31,6 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/lock" />
 
             <ImageView
@@ -38,6 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/lock" />
 
             <ImageView
@@ -45,6 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/lock" />
 
             <ImageView
@@ -52,33 +83,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/lock" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_confirmregister_line1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/line" />
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/img_confirmregister_line2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/frame_confirmregister_1"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/line" />
 
-    <ImageView
-        android:id="@+id/img_confirmregister_line1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/frame_confirmregister_1"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/line" />
-
-    <TextView
-        android:id="@+id/txt_confirmregister_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/img_confirmregister_line1"
-        android:layout_alignLeft="@+id/img_confirmregister_line1"
-        android:layout_alignStart="@+id/img_confirmregister_line1"
-        android:text="Confirm your PIN"
-        android:textSize="24dp" />
 </RelativeLayout>
