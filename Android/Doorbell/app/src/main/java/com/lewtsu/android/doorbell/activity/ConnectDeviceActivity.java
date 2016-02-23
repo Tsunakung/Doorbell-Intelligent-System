@@ -90,7 +90,7 @@ public class ConnectDeviceActivity extends Activity {
                 for (int i = 0; i < 256; ++i) {
                     ipAddress = ipSplit[0] + "." + ipSplit[1] + "." + ipSplit[2] + "." + i;
                     try {
-                        isCamera = new SocketPing().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipAddress, "250").get();
+                        isCamera = new SocketPing().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ipAddress, "200").get();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {

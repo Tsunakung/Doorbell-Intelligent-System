@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.aynctask.HTTPGetCalling;
@@ -40,7 +41,7 @@ public class CallingActivity extends Activity {
     private boolean isAccept = false;
     private MediaPlayer mp;
 
-    private Thread threadCallingTimeout;
+    private Thread threadCallingTimeout, threadPlayVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +173,9 @@ public class CallingActivity extends Activity {
     }
 
     private void videoStart() {
-        new Thread(new Runnable() {
+        if(threadPlayVideo != null && threadPlayVideo.getState() != Thread.State.TERMINATED)
+            return;
+        threadPlayVideo = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -184,7 +187,8 @@ public class CallingActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        });
+        threadPlayVideo.start();
     }
 
     private void soundStart() {
