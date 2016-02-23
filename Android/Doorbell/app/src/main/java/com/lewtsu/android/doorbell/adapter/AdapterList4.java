@@ -55,7 +55,7 @@ public class AdapterList4 extends ArrayAdapter<Map4> {
         final View tempView = convertView;
         final Map4 iconText = mapIconTexts[position];
 
-        if (!iconText.isDownload) {
+        if(!iconText.isDownload) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
