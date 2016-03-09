@@ -7,8 +7,6 @@ import com.lewtsu.android.doorbell.constant.Constant;
 
 import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 

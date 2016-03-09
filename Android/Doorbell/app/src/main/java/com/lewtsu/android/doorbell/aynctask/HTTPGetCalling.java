@@ -1,26 +1,16 @@
 package com.lewtsu.android.doorbell.aynctask;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
-import com.lewtsu.android.doorbell.adapter.data.Map.Map3;
-import com.lewtsu.android.doorbell.adapter.data.MissedCall;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HTTPGetCalling extends AsyncTask<Void, Void, String> {
 
@@ -29,7 +19,7 @@ public class HTTPGetCalling extends AsyncTask<Void, Void, String> {
         String time = null;
         String ip = null;
         try {
-            if(Config.getConfig() == null)
+            if (Config.getConfig() == null)
                 Config.loadConfig();
             ip = Config.getConfig().getString(Constant.CONNECT_IP);
         } catch (JSONException e) {

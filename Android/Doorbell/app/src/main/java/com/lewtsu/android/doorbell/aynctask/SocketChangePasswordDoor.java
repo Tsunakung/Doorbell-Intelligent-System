@@ -28,7 +28,7 @@ public class SocketChangePasswordDoor extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(ip == null)
+        if (ip == null)
             return "Not found IP Address";
 
 
@@ -58,7 +58,7 @@ public class SocketChangePasswordDoor extends AsyncTask<String, Void, String> {
             out.close();
             in.close();
             socket.close();
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

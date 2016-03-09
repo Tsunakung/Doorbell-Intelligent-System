@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.adapter.data.Map.Map1;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map2;
 import com.lewtsu.android.doorbell.adapter.holder.Holder2;
 
@@ -48,7 +47,7 @@ public class AdapterList2 extends ArrayAdapter<Map2> {
         holder.text1.setText(map2.ssid);
         holder.text2.setText(map2.encrypt);
 
-        if(map2.feq >= 0) {
+        if (map2.feq >= 0) {
             if (map2.feq <= 25) {
                 if (map2.encrypt.length() > 0)
                     holder.img1.setImageResource(R.drawable.wifi1_lock);
@@ -73,8 +72,6 @@ public class AdapterList2 extends ArrayAdapter<Map2> {
         } else {
             holder.img1.setImageResource(R.drawable.null5);
         }
-
-
 
 
         return convertView;

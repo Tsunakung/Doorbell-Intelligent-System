@@ -25,7 +25,7 @@ public class HTTPDownloadBitmap extends AsyncTask<String, Void, Bitmap> {
         String urlStr = params[0];
         try {
             bmp = BitmapFactory.decodeStream(new URL(urlStr.replace(" ", "%20")).openConnection().getInputStream());
-            if(this.resize && bmp != null)
+            if (this.resize && bmp != null)
                 bmp = Bitmap.createScaledBitmap(bmp, 64, 36, false);
         } catch (IOException e) {
             e.printStackTrace();

@@ -20,7 +20,7 @@ public class SocketPing extends AsyncTask<String, Void, Boolean> {
     protected Boolean doInBackground(String... params) {
         String ip = params[0];
         int timeout = 1000;
-        if(params.length > 1)
+        if (params.length > 1)
             timeout = Integer.parseInt(params[1]);
         boolean isDoorbell = false;
         try {
@@ -41,7 +41,7 @@ public class SocketPing extends AsyncTask<String, Void, Boolean> {
             out.close();
             in.close();
             socket.close();
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

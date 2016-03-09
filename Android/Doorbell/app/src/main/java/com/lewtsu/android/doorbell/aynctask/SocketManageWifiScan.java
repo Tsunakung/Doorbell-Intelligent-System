@@ -32,7 +32,7 @@ public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(ip == null)
+        if (ip == null)
             return list;
 
 
@@ -53,7 +53,7 @@ public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
             sizeStr = in.nextLine();
             int size = Integer.parseInt(sizeStr);
             current = in.nextLine();
-            if(current.equalsIgnoreCase("Not Connected"))
+            if (current.equalsIgnoreCase("Not Connected"))
                 type = "Not Connected";
             Map2 v = new ManageWifiListView(current, type, -1);
             list.add(v);
@@ -61,7 +61,7 @@ public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
                 ssid = in.nextLine();
                 type = in.nextLine();
                 feq = Integer.parseInt(in.nextLine());
-                if(!ssid.equalsIgnoreCase(current)) {
+                if (!ssid.equalsIgnoreCase(current)) {
                     Map2 vv = new ManageWifiListView(ssid, type, feq);
                     list.add(vv);
                 } else {
@@ -72,7 +72,7 @@ public class SocketManageWifiScan extends AsyncTask<String, Void, List<Map2>> {
             out.close();
             in.close();
             socket.close();
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

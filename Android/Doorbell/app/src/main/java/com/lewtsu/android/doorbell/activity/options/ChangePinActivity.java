@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.MainActivity;
 import com.lewtsu.android.doorbell.R;
-import com.lewtsu.android.doorbell.adapter.data.ChangePin;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
 
@@ -49,7 +48,7 @@ public class ChangePinActivity extends Activity {
                     responseToast = "PIN incorrect";
                 } else if (!newPin.equalsIgnoreCase(confirmNewPin)) {
                     responseToast = "New PIN does not match";
-                } else if(newPin.length() != 4) {
+                } else if (newPin.length() != 4) {
                     responseToast = "PIN require 4 character";
                 } else {
                     responseToast = "true";

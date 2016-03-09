@@ -122,9 +122,9 @@ public class ViewLog extends Map4 implements IHandleItem {
                 context.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(hasNext)
+                        if (hasNext)
                             next.setVisibility(View.VISIBLE);
-                        if(hasPrev)
+                        if (hasPrev)
                             prev.setVisibility(View.VISIBLE);
                     }
                 });
@@ -156,7 +156,7 @@ public class ViewLog extends Map4 implements IHandleItem {
                         @Override
                         public void run() {
                             imageView.setImageResource(R.drawable.time_wait);
-                            if(toast != null)
+                            if (toast != null)
                                 toast.cancel();
                             toast = Toast.makeText(context, "Image " + (numImage + 1), Toast.LENGTH_SHORT);
                             toast.show();

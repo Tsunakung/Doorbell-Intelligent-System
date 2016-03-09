@@ -2,9 +2,7 @@ package com.lewtsu.android.doorbell.aynctask;
 
 import android.os.AsyncTask;
 
-import com.lewtsu.android.doorbell.adapter.data.Map.Map3;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map4;
-import com.lewtsu.android.doorbell.adapter.data.MissedCall;
 import com.lewtsu.android.doorbell.adapter.data.ViewLog;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
@@ -69,9 +67,9 @@ public class HTTPGetViewLog extends AsyncTask<Void, Void, List<Map4>> {
                 status = jObj.getString("status");
                 user = jObj.getString("user_accept");
 
-                if(status != null && status.indexOf("@") >= 0) {
+                if (status != null && status.indexOf("@") >= 0) {
                     status = status.substring(status.indexOf("@") + 1);
-                    if(status.equalsIgnoreCase("Accepted")) {
+                    if (status.equalsIgnoreCase("Accepted")) {
                         status = "Accepted by " + user;
                     }
                 }

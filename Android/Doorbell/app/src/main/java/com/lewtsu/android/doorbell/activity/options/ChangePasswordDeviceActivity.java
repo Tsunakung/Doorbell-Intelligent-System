@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lewtsu.android.doorbell.MainActivity;
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.activity.SecurityConnectDeviceActivity;
 import com.lewtsu.android.doorbell.aynctask.SocketChangePasswordDevice;

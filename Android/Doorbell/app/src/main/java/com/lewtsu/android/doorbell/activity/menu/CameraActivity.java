@@ -3,6 +3,9 @@ package com.lewtsu.android.doorbell.activity.menu;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -44,17 +47,17 @@ public class CameraActivity extends Activity {
         voice = (ImageView) findViewById(R.id.imgbtn_camera_4);
 
 
-        /*
-        //screenshot.setVisibility(View.INVISIBLE);
+
+        screenshot.setVisibility(View.INVISIBLE);
         unlock.setVisibility(View.INVISIBLE);
         sound.setVisibility(View.INVISIBLE);
         voice.setVisibility(View.INVISIBLE);
 
-        //screenshot.getLayoutParams().width = 0;
+        screenshot.getLayoutParams().width = 0;
         unlock.getLayoutParams().width = 0;
         sound.getLayoutParams().width = 0;
         voice.getLayoutParams().width = 0;
-        */
+
 
         screenshot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,13 +146,12 @@ public class CameraActivity extends Activity {
         rootView.setDrawingCacheEnabled(true);
         */
 
-        View rootView = getWindow().getDecorView().getRootView();
-        rootView.setDrawingCacheEnabled(true);
+        mSurfaceVideo.setDrawingCacheEnabled(true);
 
-        Bitmap bitmap = Bitmap.createBitmap(rootView.getDrawingCache());
+        Bitmap bitmap = Bitmap.createBitmap(mSurfaceVideo.getDrawingCache());
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, df.format(now), df.format(now));
 
-        rootView.setDrawingCacheEnabled(false);
+        mSurfaceVideo.setDrawingCacheEnabled(false);
 
         /*
         mSurfaceVideo.setDrawingCacheEnabled(true);

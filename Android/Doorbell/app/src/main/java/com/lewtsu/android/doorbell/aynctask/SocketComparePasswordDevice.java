@@ -2,10 +2,7 @@ package com.lewtsu.android.doorbell.aynctask;
 
 import android.os.AsyncTask;
 
-import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
-
-import org.json.JSONException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,7 +38,7 @@ public class SocketComparePasswordDevice extends AsyncTask<String, Void, Boolean
             out.close();
             in.close();
             socket.close();
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

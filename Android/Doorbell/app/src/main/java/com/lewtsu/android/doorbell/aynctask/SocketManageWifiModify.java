@@ -27,7 +27,7 @@ public class SocketManageWifiModify extends AsyncTask<String, Void, Void> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(ip == null)
+        if (ip == null)
             return null;
 
 
@@ -59,7 +59,7 @@ public class SocketManageWifiModify extends AsyncTask<String, Void, Void> {
             out.close();
             in.close();
             socket.close();
-        } catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             e.printStackTrace();
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

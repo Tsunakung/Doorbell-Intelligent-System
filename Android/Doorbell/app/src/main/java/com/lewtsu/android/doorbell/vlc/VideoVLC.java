@@ -7,13 +7,14 @@ import android.os.Message;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.videolan.libvlc.EventHandler;
 import org.videolan.libvlc.IVideoPlayer;
 import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaList;
+
+import java.io.IOException;
 
 public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
 
@@ -83,7 +84,7 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
         else
             w = (int) (h * videoAR);
 
-        if(holder == null)
+        if (holder == null)
             return;
 
         holder.setFixedSize(mVideoWidth, mVideoHeight);
@@ -136,5 +137,19 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
         mVideoHeight = 0;
     }
 
+    public boolean isRunning() {
+        return libvlc != null ? libvlc.isPlaying() : false;
+    }
+
+    public void tryPlayer() {
+        if(libvlc == null)
+            return;
+        try {
+
+            libvlc.playIndex(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

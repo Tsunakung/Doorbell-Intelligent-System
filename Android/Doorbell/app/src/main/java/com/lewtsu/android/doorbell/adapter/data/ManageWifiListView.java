@@ -55,7 +55,7 @@ public class ManageWifiListView extends Map2 implements IHandleItem {
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 view.getContext().startActivity(intent);
-                if(view.getContext() instanceof  ManageWifiActivity)
+                if (view.getContext() instanceof ManageWifiActivity)
                     ((ManageWifiActivity) view.getContext()).onConnect();
             }
         });

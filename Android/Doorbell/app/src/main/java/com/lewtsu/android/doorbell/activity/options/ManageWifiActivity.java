@@ -123,7 +123,7 @@ public class ManageWifiActivity extends Activity {
                 if (adapt instanceof AdapterList2) {
                     Map2 mapIconText = ((AdapterList2) adapt).getItem(position);
                     if (!(mapIconText.encrypt.equalsIgnoreCase("Connected") ||
-                            mapIconText.encrypt.equalsIgnoreCase("Not Connected") ) &&
+                            mapIconText.encrypt.equalsIgnoreCase("Not Connected")) &&
                             mapIconText instanceof IHandleItem) {
                         ((IHandleItem) mapIconText).hanndle(parent, view, position, id);
                     }

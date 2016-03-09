@@ -173,14 +173,21 @@ public class CallingActivity extends Activity {
     }
 
     private void videoStart() {
-        if(threadPlayVideo != null && threadPlayVideo.getState() != Thread.State.TERMINATED)
+        if (threadPlayVideo != null && threadPlayVideo.getState() != Thread.State.TERMINATED)
             return;
         threadPlayVideo = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(10000);
+                    //Thread.sleep(10000);
+                    //videoVLC.createPlayer("http://" + Config.getConfig().getString(Constant.CONNECT_IP) + ":" + Constant.STREAMVIDEO_PORT + "/");
+
                     videoVLC.createPlayer("http://" + Config.getConfig().getString(Constant.CONNECT_IP) + ":" + Constant.STREAMVIDEO_PORT + "/");
+                    Thread.sleep(2000);
+                    while (!videoVLC.isRunning()) {
+                        videoVLC.tryPlayer();
+                        Thread.sleep(2000);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

@@ -155,7 +155,7 @@ public class SecurityConnectDeviceActivity extends Activity {
 
     private void onButtonComplete() {
         btnConnect.setEnabled(true);
-        if(!isExtraIp)
+        if (!isExtraIp)
             editTextIP.setEnabled(true);
         editTextPassword.setEnabled(true);
         btnConnect.setText("Connect");
