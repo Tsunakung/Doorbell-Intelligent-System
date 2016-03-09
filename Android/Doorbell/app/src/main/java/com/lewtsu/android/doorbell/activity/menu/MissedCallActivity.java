@@ -58,6 +58,11 @@ public class MissedCallActivity extends Activity {
                         manageMissedCallStart();
                     }
                 });
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 isComplete = false;
 
                 List<Map3> list = null;

@@ -43,7 +43,13 @@ public class ViewLogActivity extends Activity {
         startScanViewLog();
     }
 
-    private void startScanViewLog() {
+    public void releaseThreadScanViewLog() {
+        while(threadScanViewLog.getState() != Thread.State.TERMINATED) {
+            threadScanViewLog.interrupt();
+        }
+    }
+
+    public void startScanViewLog() {
         if (threadScanViewLog != null && threadScanViewLog.getState() != Thread.State.TERMINATED)
             return;
         threadScanViewLog = new Thread(new Runnable() {

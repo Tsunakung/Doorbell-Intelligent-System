@@ -71,6 +71,8 @@ public class HTTPGetViewLog extends AsyncTask<Void, Void, List<Map4>> {
                     status = status.substring(status.indexOf("@") + 1);
                     if (status.equalsIgnoreCase("Accepted")) {
                         status = "Accepted by " + user;
+                    } else if(status.equalsIgnoreCase("Miss")) {
+                        status = "Missed";
                     }
                 }
 
