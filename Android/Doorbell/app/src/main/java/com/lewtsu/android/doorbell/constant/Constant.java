@@ -13,4 +13,5 @@ public class Constant {
     public static final String PIN = "PIN";
     public static final String CONNECT_IP = "CONNECT_IP";
 
+    public static final String NOTIFICATION = "NOTIFICATION";
 }

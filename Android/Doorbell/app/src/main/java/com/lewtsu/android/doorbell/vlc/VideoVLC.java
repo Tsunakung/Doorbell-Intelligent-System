@@ -14,8 +14,6 @@ import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaList;
 
-import java.io.IOException;
-
 public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
 
     public final static int VideoSizeChanged = -1;
@@ -142,7 +140,7 @@ public class VideoVLC implements SurfaceHolder.Callback, IVideoPlayer {
     }
 
     public void tryPlayer() {
-        if(libvlc == null)
+        if (libvlc == null)
             return;
         try {
 

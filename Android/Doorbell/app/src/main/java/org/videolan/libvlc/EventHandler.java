@@ -119,7 +119,9 @@ public class EventHandler {
         mEventHandler.remove(handler);
     }
 
-    /** This method is called by a native thread **/
+    /**
+     * This method is called by a native thread
+     **/
     public void callback(int event, Bundle b) {
         b.putInt("event", event);
         for (int i = 0; i < mEventHandler.size(); i++) {

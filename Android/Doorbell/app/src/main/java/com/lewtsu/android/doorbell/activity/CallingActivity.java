@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.lewtsu.android.doorbell.R;
 import com.lewtsu.android.doorbell.aynctask.HTTPGetCalling;
@@ -23,6 +22,7 @@ import com.lewtsu.android.doorbell.aynctask.SocketGetSound;
 import com.lewtsu.android.doorbell.aynctask.SocketSendSound;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
+import com.lewtsu.android.doorbell.service.CallingService;
 import com.lewtsu.android.doorbell.vlc.VideoVLC;
 
 import org.json.JSONException;
@@ -277,6 +277,7 @@ public class CallingActivity extends Activity {
         mp.stop();
         SocketGetSound.stop();
         SocketSendSound.stop();
+        CallingService.thread.interrupt();
         isRunning = false;
 
         if (isAccept) {

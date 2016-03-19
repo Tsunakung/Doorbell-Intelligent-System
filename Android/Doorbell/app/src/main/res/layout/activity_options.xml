@@ -23,4 +23,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_options_1"
         android:layout_marginTop="30dp" />
+
+    <Switch
+        android:id="@+id/list_switch_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_options_1"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Notification"
+        android:textColor="#FFFFFFFF"
+        android:textSize="24dp" />
 </RelativeLayout>

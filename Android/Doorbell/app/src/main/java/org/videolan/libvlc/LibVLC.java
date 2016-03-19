@@ -44,16 +44,22 @@ public class LibVLC {
 
     private static LibVLC sInstance;
 
-    /** libVLC instance C pointer */
+    /**
+     * libVLC instance C pointer
+     */
     private long mLibVlcInstance = 0; // Read-only, reserved for JNI
-    /** libvlc_media_player pointer and index */
+    /**
+     * libvlc_media_player pointer and index
+     */
     private int mInternalMediaPlayerIndex = 0; // Read-only, reserved for JNI
     private long mInternalMediaPlayerInstance = 0; // Read-only, reserved for JNI
 
     private MediaList mMediaList; // Pointer to media list being followed
     private MediaList mPrimaryList; // Primary/default media list; see getPrimaryMediaList()
 
-    /** Buffer for VLC messages */
+    /**
+     * Buffer for VLC messages
+     */
     private StringBuffer mDebugLogBuffer;
     private boolean mIsBufferingLog = false;
 
@@ -62,7 +68,9 @@ public class LibVLC {
     /** Keep screen bright */
     //private WakeLock mWakeLock;
 
-    /** Settings */
+    /**
+     * Settings
+     */
     private int hardwareAcceleration = HW_ACCELERATION_AUTOMATIC;
     private String subtitlesEncoding = "";
     private int aout = LibVlcUtil.isGingerbreadOrLater() ? AOUT_OPENSLES : AOUT_AUDIOTRACK_JAVA;
@@ -75,7 +83,9 @@ public class LibVLC {
     private boolean frameSkip = false;
     private int networkCaching = 0;
 
-    /** Check in libVLC already initialized otherwise crash */
+    /**
+     * Check in libVLC already initialized otherwise crash
+     */
     private boolean mIsInitialized = false;
 
     public native void attachSurface(Surface surface, IVideoPlayer player);
@@ -194,11 +204,11 @@ public class LibVLC {
      * Not to be confused with the media list pointer from above, which
      * refers the the MediaList object that libVLC is currently following.
      * This list is just one out of many lists that it can be pointed towards.
-     *
+     * <p/>
      * This list will be used for lists of songs that are not user-defined.
      * For example: selecting a song from the Songs list, or from the list
      * displayed after selecting an album.
-     *
+     * <p/>
      * It is loaded as the default list.
      *
      * @return The primary media list
@@ -209,6 +219,7 @@ public class LibVLC {
 
     /**
      * Give to LibVLC the surface to draw the video.
+     *
      * @param f the surface to draw
      */
     public native void setSurface(Surface f);
@@ -357,7 +368,7 @@ public class LibVLC {
 
     /**
      * Initialize the libVLC class.
-     *
+     * <p/>
      * This function must be called before using any libVLC functions.
      *
      * @throws LibVlcException
@@ -379,6 +390,7 @@ public class LibVLC {
 
     /**
      * Destroy this libVLC instance
+     *
      * @note You must call it before exiting
      */
     public void destroy() {
@@ -481,12 +493,14 @@ public class LibVLC {
 
     /**
      * Initialize the libvlc C library
+     *
      * @return a pointer to the libvlc instance
      */
     private native void nativeInit() throws LibVlcException;
 
     /**
      * Close the libvlc C library
+     *
      * @note mLibVlcInstance should be 0 after a call to destroy()
      */
     private native void nativeDestroy();
@@ -547,18 +561,21 @@ public class LibVLC {
 
     /**
      * Sets volume as integer
+     *
      * @param volume: Volume level passed as integer
      */
     public native int setVolume(int volume);
 
     /**
      * Gets the current movie time (in ms).
+     *
      * @return the movie time (in ms), or -1 if there is no media.
      */
     public native long getTime();
 
     /**
      * Sets the movie time (in ms), if any media is being played.
+     *
      * @param time: Time in ms.
      * @return the movie time (in ms), or -1 if there is no media.
      */
@@ -566,42 +583,49 @@ public class LibVLC {
 
     /**
      * Gets the movie position.
+     *
      * @return the movie position, or -1 for any error.
      */
     public native float getPosition();
 
     /**
      * Sets the movie position.
+     *
      * @param pos: movie position.
      */
     public native void setPosition(float pos);
 
     /**
      * Gets current movie's length in ms.
+     *
      * @return the movie length (in ms), or -1 if there is no media.
      */
     public native long getLength();
 
     /**
      * Get the libVLC version
+     *
      * @return the libVLC version string
      */
     public native String version();
 
     /**
      * Get the libVLC compiler
+     *
      * @return the libVLC compiler string
      */
     public native String compiler();
 
     /**
      * Get the libVLC changeset
+     *
      * @return the libVLC changeset string
      */
     public native String changeset();
 
     /**
      * Get a media thumbnail.
+     *
      * @return a bytearray with the RGBA thumbnail data inside.
      */
     private native byte[] getThumbnail(long instance, String mrl, int i_width, int i_height);
@@ -640,8 +664,7 @@ public class LibVLC {
     /**
      * Quickly converts path to URIs, which are mandatory in libVLC.
      *
-     * @param path
-     *            The path to be converted.
+     * @param path The path to be converted.
      * @return A URI representation of path
      */
     public static String PathToURI(String path) {
@@ -669,6 +692,7 @@ public class LibVLC {
 
     /**
      * Expand the current media.
+     *
      * @return the index of the media was expanded, and -1 if no media was expanded
      */
     public int expand() {

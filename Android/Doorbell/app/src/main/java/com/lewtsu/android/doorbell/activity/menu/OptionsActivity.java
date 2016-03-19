@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.lewtsu.android.doorbell.R;
@@ -38,6 +39,7 @@ public class OptionsActivity extends Activity {
     private ListView listView;
     private AdapterList1 arrayAdapter;
     private TextView textView;
+    private Switch sw;
 
 
     @Override
@@ -46,6 +48,8 @@ public class OptionsActivity extends Activity {
         setContentView(R.layout.activity_options);
 
         textView = (TextView) findViewById(R.id.txt_options_1);
+        sw = (Switch) findViewById(R.id.list_switch_1);
+
         try {
             textView.setText("IP: " + Config.getConfig().getString(Constant.CONNECT_IP));
         } catch (JSONException e) {
@@ -65,6 +69,24 @@ public class OptionsActivity extends Activity {
                     Map1 mapIconText = ((AdapterList1) adapt).getItem(position);
                     if (mapIconText instanceof IHandleItem)
                         ((IHandleItem) mapIconText).hanndle(parent, view, position, id);
+                }
+            }
+        });
+
+        try {
+            sw.setChecked(Config.getConfig().getBoolean(Constant.NOTIFICATION));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        sw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean check = sw.isChecked();
+                try {
+                    Config.getConfig().put(Constant.NOTIFICATION, check);
+                    Config.writeConfig();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         });

@@ -71,6 +71,7 @@ public class ConfirmFirstLoginActivity extends Activity {
                     } else {
                         try {
                             Config.getConfig().put(Constant.PIN, pin);
+                            Config.getConfig().put(Constant.NOTIFICATION, true);
                             Config.writeConfig();
                         } catch (JSONException e) {
                             e.printStackTrace();
