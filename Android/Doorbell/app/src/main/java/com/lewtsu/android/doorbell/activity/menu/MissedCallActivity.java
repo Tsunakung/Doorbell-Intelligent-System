@@ -19,6 +19,7 @@ import com.lewtsu.android.doorbell.adapter.AdapterList3;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map3;
 import com.lewtsu.android.doorbell.aynctask.HTTPGetMissCall;
+import com.lewtsu.android.doorbell.aynctask.HTTPRemoveLog;
 import com.lewtsu.android.doorbell.aynctask.HTTPSetFinishMissedCall;
 
 import java.util.List;
@@ -156,11 +157,11 @@ public class MissedCallActivity extends Activity {
             if (iconTexts != null && iconTexts.length != 0) {
                 //item.setIcon(R.drawable.btn_bin_hold);
                 AlertDialog.Builder builder = new AlertDialog.Builder(MissedCallActivity.this);
-                builder.setMessage("You want to remove the misscall ?")
+                builder.setMessage("You want to remove all log ?")
                         .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                new HTTPSetFinishMissedCall().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                new HTTPRemoveLog().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                                 startScanMissedCall();
                             }
                         })

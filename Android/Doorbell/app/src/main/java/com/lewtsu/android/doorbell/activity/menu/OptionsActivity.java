@@ -3,12 +3,14 @@ package com.lewtsu.android.doorbell.activity.menu;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -21,10 +23,15 @@ import com.lewtsu.android.doorbell.adapter.data.ChangePin;
 import com.lewtsu.android.doorbell.adapter.data.DeleteDevice;
 import com.lewtsu.android.doorbell.adapter.data.ManageWifi;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map1;
+import com.lewtsu.android.doorbell.aynctask.HTTPGetFreeDisk;
 import com.lewtsu.android.doorbell.config.Config;
 import com.lewtsu.android.doorbell.constant.Constant;
 
 import org.json.JSONException;
+
+import java.text.DecimalFormat;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class OptionsActivity extends Activity {
 
@@ -38,8 +45,10 @@ public class OptionsActivity extends Activity {
 
     private ListView listView;
     private AdapterList1 arrayAdapter;
-    private TextView textView;
+    private TextView textView, textView2;
     private Switch sw;
+    private ProgressBar progressBar;
+    private double freedisk;
 
 
     @Override
@@ -48,7 +57,9 @@ public class OptionsActivity extends Activity {
         setContentView(R.layout.activity_options);
 
         textView = (TextView) findViewById(R.id.txt_options_1);
+        textView2 = (TextView) findViewById(R.id.txt_options_2);
         sw = (Switch) findViewById(R.id.list_switch_1);
+        progressBar = (ProgressBar) findViewById(R.id.list_progressBar_1);
 
         try {
             textView.setText("IP: " + Config.getConfig().getString(Constant.CONNECT_IP));
@@ -90,6 +101,40 @@ public class OptionsActivity extends Activity {
                 }
             }
         });
+
+
+        startScanFreeDisk();
+    }
+
+    public void startScanFreeDisk() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    freedisk = 100 - new HTTPGetFreeDisk().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            textView2.setText(textView2.getText() + " " + df.format(freedisk) + "%");
+                            progressBar.setProgress((int) freedisk);
+                            if(freedisk < 50)
+                                progressBar.setBackgroundColor(0xFF00FF00);
+                            else if(freedisk < 70)
+                                progressBar.setBackgroundColor(0xFFFFFF00);
+                            else if(freedisk < 90)
+                                progressBar.setBackgroundColor(0xFFFF8800);
+                            else
+                                progressBar.setBackgroundColor(0xFFFF0000);
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override

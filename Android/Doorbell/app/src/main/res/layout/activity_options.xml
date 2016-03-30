@@ -35,4 +35,26 @@
         android:text="Notification"
         android:textColor="#FFFFFFFF"
         android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/txt_options_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_switch_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Memory usage"
+        android:textColor="#fcff24"
+        android:textSize="18dp" />
+
+    <ProgressBar
+        android:id="@+id/list_progressBar_1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_options_2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:max="100" />
 </RelativeLayout>

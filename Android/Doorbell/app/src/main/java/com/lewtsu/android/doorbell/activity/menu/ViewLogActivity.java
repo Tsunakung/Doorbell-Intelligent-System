@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,15 +14,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.lewtsu.android.doorbell.R;
+import com.lewtsu.android.doorbell.activity.ITabMenu;
 import com.lewtsu.android.doorbell.adapter.AdapterList4;
 import com.lewtsu.android.doorbell.adapter.IHandleItem;
 import com.lewtsu.android.doorbell.adapter.data.Map.Map4;
 import com.lewtsu.android.doorbell.aynctask.HTTPGetViewLog;
+import com.lewtsu.android.doorbell.aynctask.HTTPRemoveLog;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class ViewLogActivity extends Activity {
+public class ViewLogActivity extends Activity implements ITabMenu {
 
     private ListView listView;
     private TextView textView;
@@ -172,4 +175,38 @@ public class ViewLogActivity extends Activity {
         return iconTexts;
     }
 
+    @Override
+    public int getOptionMenu() {
+        return R.menu.menu_missedcall;
+    }
+
+    @Override
+    public void handlerOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.remove_misscall) {
+            if (iconTexts != null && iconTexts.length != 0) {
+                //item.setIcon(R.drawable.btn_bin_hold);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewLogActivity.this);
+                builder.setMessage("You want to remove all logs ?")
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new HTTPRemoveLog().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                releaseThreadScanViewLog();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Thread.sleep(1000);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                        startScanViewLog();
+                                    }
+                                }).start();
+                            }
+                        })
+                        .setPositiveButton("No", null).show();
+            }
+        }
+    }
 }
